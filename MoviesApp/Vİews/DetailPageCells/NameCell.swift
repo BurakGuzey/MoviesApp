@@ -13,15 +13,6 @@ class NameCell: UITableViewCell {
     @IBOutlet weak var releaseDate: UILabel!
     @IBOutlet weak var runtimeLabel: UILabel!
     @IBOutlet weak var circle: UIImageView!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+ 
     
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 class MovieListController: UIViewController, UITableViewDelegate {
-
+    
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var listTableView: UITableView!
     
@@ -23,10 +23,10 @@ class MovieListController: UIViewController, UITableViewDelegate {
         listTableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ReusableCell")
         
         
- 
+        
     }
-
-
+    
+    
 }
 
 extension MovieListController: UITableViewDataSource {
@@ -42,7 +42,8 @@ extension MovieListController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        performSegue(withIdentifier: "goToDetails", sender: self)
+        navigationController?.pushViewController(DetailPageController(), animated: true)
+        
     }
     
     

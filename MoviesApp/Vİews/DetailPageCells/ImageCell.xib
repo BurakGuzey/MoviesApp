@@ -29,7 +29,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="MovieImage" destination="0RL-8l-c4c" id="Uxe-QT-X2T"/>
+                <outlet property="movieImage" destination="0RL-8l-c4c" id="Uxe-QT-X2T"/>
             </connections>
             <point key="canvasLocation" x="117" y="-19"/>
         </tableViewCell>
