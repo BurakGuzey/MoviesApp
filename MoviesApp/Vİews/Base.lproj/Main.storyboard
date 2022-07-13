@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Movie List Controller-->
+        <!--Movies-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MovieListController" customModule="MoviesApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -41,7 +41,7 @@
                             <constraint firstItem="N3E-6Q-aVx" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="rKx-Yt-tJw"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="ESH-Ce-MpJ"/>
+                    <navigationItem key="navigationItem" title="Movies" id="ESH-Ce-MpJ"/>
                     <connections>
                         <outlet property="listTableView" destination="N3E-6Q-aVx" id="qnI-9e-AbB"/>
                     </connections>
@@ -78,6 +78,16 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="bdU-NO-7HH">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="wDC-lC-TpI">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wDC-lC-TpI" id="NbA-d4-2jT">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4G1-98-gpp"/>
@@ -135,7 +145,7 @@
             </objects>
             <point key="canvasLocation" x="939.13043478260875" y="70.982142857142847"/>
         </scene>
-        <!--Favorites Controller-->
+        <!--Favorites-->
         <scene sceneID="YHs-U8-0zy">
             <objects>
                 <viewController id="rvB-90-NSR" customClass="FavoritesController" sceneMemberID="viewController">
@@ -157,7 +167,7 @@
                             <constraint firstItem="Tk3-se-EeK" firstAttribute="top" secondItem="19O-7E-hmr" secondAttribute="top" id="w8q-a2-qY6"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="5Ck-PI-nJR"/>
+                    <navigationItem key="navigationItem" title="Favorites" id="5Ck-PI-nJR"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Rn-Et-wuk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

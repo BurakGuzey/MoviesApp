@@ -9,7 +9,6 @@ import UIKit
 
 class MovieListController: UIViewController, UITableViewDelegate {
     
-    @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var listTableView: UITableView!
     
     let movieList = ["Spiderman", "Fury", "Interstellar"]
@@ -22,11 +21,9 @@ class MovieListController: UIViewController, UITableViewDelegate {
         
         listTableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ReusableCell")
         
-        
+        self.listTableView.rowHeight = 74
         
     }
-    
-    
 }
 
 extension MovieListController: UITableViewDataSource {
@@ -45,6 +42,4 @@ extension MovieListController: UITableViewDataSource {
         navigationController?.pushViewController(DetailPageController(), animated: true)
         
     }
-    
-    
 }
