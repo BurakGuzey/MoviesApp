@@ -9,20 +9,24 @@ import UIKit
 
 class MovieListController: UIViewController, UITableViewDelegate {
     
+    var movieList = ["movie1", "movie2", "movie3"]
+    var moviesManager = MoviesManager(pageNum: 1, lang: "en")
+    
     @IBOutlet weak var listTableView: UITableView!
     
-    let movieList = ["Spiderman", "Fury", "Interstellar"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         listTableView.dataSource = self
         listTableView.delegate = self
+        moviesManager.delegate = self
         
         listTableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ReusableCell")
         
         self.listTableView.rowHeight = 74
         
+        moviesManager.getPopularMovies()
+        print(movieList)
     }
 }
 
@@ -41,5 +45,12 @@ extension MovieListController: UITableViewDataSource {
         
         navigationController?.pushViewController(DetailPageController(), animated: true)
         
+    }
+}
+
+extension MovieListController: MoviesManagerDelegate {
+    func didUploadMovieList(movies: MoviesModel) {
+        movieList[0] = movies.movieName
+        print(movieList[0])
     }
 }

@@ -7,13 +7,14 @@
 
 import Foundation
 
-struct MoviesData: Decodable {
-    let result: [Result]
+struct MoviesData: Codable {
+    let results: [Results]
 }
 
-struct Result: Decodable {
+struct Results: Codable {
     let id: Int
     let title: String
     let release_date: String
     let vote_average: Float
+    let poster_path: String
 }
