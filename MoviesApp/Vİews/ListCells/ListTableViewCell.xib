@@ -26,14 +26,14 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wH8-EC-qAw" userLabel="Movie Info">
                         <rect key="frame" x="130" y="0.0" width="480" height="140"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MovieName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URC-OV-uI6">
-                                <rect key="frame" x="10" y="10" width="119" height="27.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MovieName" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URC-OV-uI6">
+                                <rect key="frame" x="10" y="10" width="460" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6iI-WO-n4M" userLabel="Below Name">
-                                <rect key="frame" x="0.0" y="37.5" width="480" height="102.5"/>
+                                <rect key="frame" x="0.0" y="34" width="480" height="106"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Release Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaj-0C-7nb">
                                         <rect key="frame" x="10" y="10" width="85" height="17"/>
@@ -66,6 +66,7 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="6iI-WO-n4M" secondAttribute="bottom" id="8yl-Hb-l2C"/>
                             <constraint firstItem="URC-OV-uI6" firstAttribute="leading" secondItem="wH8-EC-qAw" secondAttribute="leading" constant="10" id="EVv-TJ-cKR"/>
+                            <constraint firstAttribute="trailing" secondItem="URC-OV-uI6" secondAttribute="trailing" constant="10" id="KAj-He-vO4"/>
                             <constraint firstItem="6iI-WO-n4M" firstAttribute="leading" secondItem="wH8-EC-qAw" secondAttribute="leading" id="Vuc-qU-UqU"/>
                             <constraint firstAttribute="trailing" secondItem="6iI-WO-n4M" secondAttribute="trailing" id="bub-2r-i6q"/>
                             <constraint firstItem="6iI-WO-n4M" firstAttribute="top" secondItem="URC-OV-uI6" secondAttribute="bottom" id="nlD-r3-b34"/>

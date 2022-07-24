@@ -9,9 +9,11 @@ import UIKit
 
 class MovieListController: UIViewController, UITableViewDelegate {
     
-    var movieList = ["movie1", "movie2", "movie3"]
-    var moviesManager = MoviesManager(pageNum: 1, lang: "en")
     
+    var moviesManager = MoviesManager(pageNum: 1, lang: "en")
+    var nameList = [String]()
+    var realesedateList = [String]()
+    var ratingList = [String]()
     @IBOutlet weak var listTableView: UITableView!
     
     
@@ -23,34 +25,37 @@ class MovieListController: UIViewController, UITableViewDelegate {
         
         listTableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ReusableCell")
         
-        self.listTableView.rowHeight = 74
+        self.listTableView.rowHeight = 94
         
         moviesManager.getPopularMovies()
-        print(movieList)
+        
     }
 }
 
 extension MovieListController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movieList.count
+        return nameList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath) as! ListTableViewCell
-        cell.movieName.text = movieList[indexPath.row]
+        cell.movieName.text = nameList[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         navigationController?.pushViewController(DetailPageController(), animated: true)
-        
     }
 }
 
 extension MovieListController: MoviesManagerDelegate {
-    func didUploadMovieList(movies: MoviesModel) {
-        movieList[0] = movies.movieName
-        print(movieList[0])
+    func didUploadMovieList(moviesList: MoviesModel2) {
+        DispatchQueue.main.async {
+            self.nameList = moviesList.nameList
+            self.realesedateList = moviesList.releasedateList
+            self.ratingList = moviesList.ratingList
+            self.listTableView.reloadData()
+        }
     }
 }

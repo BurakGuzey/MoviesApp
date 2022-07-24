@@ -14,3 +14,11 @@ struct MoviesModel {
     let ratingOfMovie: Float
     let posterPhoto: String
 }
+
+struct MoviesModel2 {
+    let idList: [Int]
+    let nameList: [String]
+    let releasedateList: [String]
+    let ratingList: [String]
+    let posterPath: [String]
+}
