@@ -12,34 +12,37 @@ protocol MoviesManagerDelegate {
     }
 
 struct MoviesManager {
-    let baseURL = "https://api.themoviedb.org/3"
-    let apiKey = "16e807f61c3e7c6382feff585c3859ad"
-    let pageNum: Int
-    let lang: String
     
+    let apiKey = "16e807f61c3e7c6382feff585c3859ad"
     
     var delegate: MoviesManagerDelegate?
+
+    func getPopular() {
+            var components = URLComponents()
+                components.scheme = "https"
+                components.host = "api.themoviedb.org"
+                components.path = "/3/movie/popular"
+                components.queryItems = [
+                    URLQueryItem(name: "api_key", value: apiKey)
+                ]
+            let urlString = components.url
+            performRequest(with: urlString!)
+        }
     
-    func getPopularMovies() {
-        let urlString = "\(baseURL)/movie/popular?api_key=\(apiKey)&page=\(pageNum)&language=\(lang)"
-        performRequest(with: urlString)
-    }
-    func performRequest(with urlString: String) {
-        if let url = URL(string: urlString) {
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { (data, response, error) in
-                if error != nil {
-                    print(error!)
-                    return
-                }
-                if let safeData = data {
-                    if let moviesList = self.parseJSON(safeData) {
-                        self.delegate?.didUploadMovieList(moviesList: moviesList)
-                    }
+    func performRequest(with urlString: URL) {
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: urlString) { (data, response, error) in
+            if error != nil {
+                print(error!)
+                return
+            }
+            if let safeData = data {
+                if let moviesList = self.parseJSON(safeData) {
+                    self.delegate?.didUploadMovieList(moviesList: moviesList)
                 }
             }
-            task.resume()
         }
+        task.resume()
     }
     
     func parseJSON(_ moviesData: Data) -> MoviesModel2? {

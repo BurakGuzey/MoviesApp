@@ -10,10 +10,11 @@ import UIKit
 class MovieListController: UIViewController, UITableViewDelegate {
     
     
-    var moviesManager = MoviesManager(pageNum: 1, lang: "en")
+    var moviesManager = MoviesManager()
     var nameList = [String]()
     var realesedateList = [String]()
     var ratingList = [String]()
+    
     @IBOutlet weak var listTableView: UITableView!
     
     
@@ -27,7 +28,7 @@ class MovieListController: UIViewController, UITableViewDelegate {
         
         self.listTableView.rowHeight = 94
         
-        moviesManager.getPopularMovies()
+        moviesManager.getPopular()
         
     }
 }
@@ -40,6 +41,8 @@ extension MovieListController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath) as! ListTableViewCell
         cell.movieName.text = nameList[indexPath.row]
+        cell.ratingOfMovie.text = ratingList[indexPath.row]
+        cell.releaseDate.text = realesedateList[indexPath.row]
         return cell
     }
     
