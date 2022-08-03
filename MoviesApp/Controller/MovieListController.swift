@@ -14,6 +14,9 @@ class MovieListController: UIViewController, UITableViewDelegate {
     var nameList = [String]()
     var realesedateList = [String]()
     var ratingList = [String]()
+    var posterPathList = [String]()
+    var realImage = UIImage()
+    var urlStringReal = String()
     
     @IBOutlet weak var listTableView: UITableView!
     
@@ -22,13 +25,13 @@ class MovieListController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
         listTableView.dataSource = self
         listTableView.delegate = self
-        moviesManager.delegate = self
+        
         
         listTableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ReusableCell")
         
-        self.listTableView.rowHeight = 94
+        getPopular()
         
-        moviesManager.getPopular()
+        self.listTableView.rowHeight = 94
         
     }
 }
@@ -43,6 +46,7 @@ extension MovieListController: UITableViewDataSource {
         cell.movieName.text = nameList[indexPath.row]
         cell.ratingOfMovie.text = ratingList[indexPath.row]
         cell.releaseDate.text = realesedateList[indexPath.row]
+        cell.movieImage.image = realImage
         return cell
     }
     
@@ -50,15 +54,67 @@ extension MovieListController: UITableViewDataSource {
         
         navigationController?.pushViewController(DetailPageController(), animated: true)
     }
+    
 }
 
-extension MovieListController: MoviesManagerDelegate {
+extension MovieListController {
+    
+    func performRequest(with urlString: URL) {
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: urlString) { (data, response, error) in
+            if error != nil {
+                print(error!)
+                return
+            }
+            if let safeData = data {
+                if let moviesList = self.moviesManager.parseJSON(safeData) {
+                    self.didUploadMovieList(moviesList: moviesList)
+                }
+            }
+        }
+        task.resume()
+    }
+    
     func didUploadMovieList(moviesList: MoviesModel2) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [self] in
+            
+            self.posterPathList = moviesList.posterPath
             self.nameList = moviesList.nameList
             self.realesedateList = moviesList.releasedateList
             self.ratingList = moviesList.ratingList
+           
+            getImage()
+          
+
+            if let urlPath = URL(string: urlStringReal) {
+            let data = try? Data(contentsOf: urlPath) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                realImage = UIImage(data: data!)!
+            }
+            
             self.listTableView.reloadData()
+            
         }
     }
+    
+    func getPopular() {
+        
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.themoviedb.org"
+        components.path = "/3/movie/popular"
+        components.queryItems = [
+            URLQueryItem(name: "api_key", value: moviesManager.apiKey),
+        ]
+        let urlString = components.url
+        performRequest(with: urlString!)
+    }
+    
+    
+    func getImage() {
+        
+        let urlString = "https://image.tmdb.org/t/p/w500/\(posterPathList[0])"
+        urlStringReal = urlString
+    }
 }
+
+

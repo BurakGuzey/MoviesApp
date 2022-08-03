@@ -75,34 +75,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="bdU-NO-7HH">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zRb-Yh-hNF">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FirstCell" id="wDC-lC-TpI">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wDC-lC-TpI" id="NbA-d4-2jT">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <viewLayoutGuide key="contentLayoutGuide" id="ESn-Hj-cac"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="lhe-jj-Rin"/>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4G1-98-gpp"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="bdU-NO-7HH" firstAttribute="trailing" secondItem="4G1-98-gpp" secondAttribute="trailing" id="7eV-lw-6nq"/>
-                            <constraint firstItem="bdU-NO-7HH" firstAttribute="leading" secondItem="4G1-98-gpp" secondAttribute="leading" id="7jw-Q6-NQc"/>
-                            <constraint firstItem="bdU-NO-7HH" firstAttribute="top" secondItem="7Gv-M8-ABJ" secondAttribute="top" id="luO-Ib-R4q"/>
-                            <constraint firstAttribute="bottom" secondItem="bdU-NO-7HH" secondAttribute="bottom" id="tBf-Rv-mc3"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Oxe-is-q5Z"/>
-                    <connections>
-                        <outlet property="detailPageTableView" destination="bdU-NO-7HH" id="pxy-EX-nRH"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="221-Co-cPP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -175,8 +158,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="film.fill" catalog="system" width="128" height="93"/>
-        <image name="star.fill" catalog="system" width="128" height="116"/>
+        <image name="film.fill" catalog="system" width="32" height="32"/>
+        <image name="star.fill" catalog="system" width="32" height="32"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
