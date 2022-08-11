@@ -15,8 +15,8 @@ class MovieListController: UIViewController, UITableViewDelegate {
     var realesedateList = [String]()
     var ratingList = [String]()
     var posterPathList = [String]()
-    var realImage = UIImage()
-    var urlStringReal = String()
+    var imageList = [UIImage]()
+    var imageUrlString = String()
     
     @IBOutlet weak var listTableView: UITableView!
     
@@ -26,10 +26,9 @@ class MovieListController: UIViewController, UITableViewDelegate {
         listTableView.dataSource = self
         listTableView.delegate = self
         
-        
         listTableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ReusableCell")
         
-        getPopular()
+        getPopularMovies()
         
         self.listTableView.rowHeight = 94
         
@@ -46,7 +45,7 @@ extension MovieListController: UITableViewDataSource {
         cell.movieName.text = nameList[indexPath.row]
         cell.ratingOfMovie.text = ratingList[indexPath.row]
         cell.releaseDate.text = realesedateList[indexPath.row]
-        cell.movieImage.image = realImage
+        cell.movieImage.image = imageList[indexPath.row]
         return cell
     }
     
@@ -56,7 +55,6 @@ extension MovieListController: UITableViewDataSource {
     }
     
 }
-
 extension MovieListController {
     
     func performRequest(with urlString: URL) {
@@ -67,7 +65,7 @@ extension MovieListController {
                 return
             }
             if let safeData = data {
-                if let moviesList = self.moviesManager.parseJSON(safeData) {
+                if let moviesList = self.moviesManager.parseMovieList(safeData) {
                     self.didUploadMovieList(moviesList: moviesList)
                 }
             }
@@ -75,28 +73,32 @@ extension MovieListController {
         task.resume()
     }
     
-    func didUploadMovieList(moviesList: MoviesModel2) {
+    func didUploadMovieList(moviesList: MoviesListModel) {
         DispatchQueue.main.async { [self] in
             
-            self.posterPathList = moviesList.posterPath
             self.nameList = moviesList.nameList
             self.realesedateList = moviesList.releasedateList
             self.ratingList = moviesList.ratingList
-           
-            getImage()
-          
-
-            if let urlPath = URL(string: urlStringReal) {
-            let data = try? Data(contentsOf: urlPath) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                realImage = UIImage(data: data!)!
+            self.posterPathList = moviesList.posterPath
+            
+            var counter: Int = 0
+            
+            for counter in 0...19 {
+                
+                getMovieImages(idNumber: counter)
+                
+                if let urlPath = URL(string: imageUrlString) {
+                    let data = try? Data(contentsOf: urlPath)
+                    let image = UIImage(data: data!)!
+                    imageList.append(image)
+                }
+                
+                self.listTableView.reloadData()
             }
-            
-            self.listTableView.reloadData()
-            
         }
     }
     
-    func getPopular() {
+    func getPopularMovies() {
         
         var components = URLComponents()
         components.scheme = "https"
@@ -105,16 +107,27 @@ extension MovieListController {
         components.queryItems = [
             URLQueryItem(name: "api_key", value: moviesManager.apiKey),
         ]
-        let urlString = components.url
-        performRequest(with: urlString!)
+        let url = components.url
+        performRequest(with: url!)
     }
     
     
-    func getImage() {
+    func URLImage(index: Int, List: [String]) {
         
-        let urlString = "https://image.tmdb.org/t/p/w500/\(posterPathList[0])"
-        urlStringReal = urlString
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "image.tmdb.org"
+        components.path = "/t/p/w500\(List[index])"
+        
+        let imageUrl = components.url!
+        imageUrlString = imageUrl.absoluteString
+    }
+    
+    func getMovieImages(idNumber: Int) {
+        URLImage(index: idNumber, List: posterPathList)
     }
 }
+
+
 
 

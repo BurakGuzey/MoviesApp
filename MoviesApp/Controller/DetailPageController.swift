@@ -10,13 +10,21 @@ import UIKit
 
 class DetailPageController: UIViewController, UITableViewDelegate {
     
-    @IBOutlet weak var detailPageTableView: UITableView!
+    @IBOutlet weak var CastCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
     }
 }
 
+extension DetailPageController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CastCell", for: indexPath) as! CastCollectionViewCell
+        return cell
+    }
+}

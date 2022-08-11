@@ -12,7 +12,7 @@ struct MoviesManager {
     let apiKey = "16e807f61c3e7c6382feff585c3859ad"
     
     
-    func parseJSON(_ moviesData: Data) -> MoviesModel2? {
+    func parseMovieList(_ moviesData: Data) -> MoviesListModel? {
         
         let decoder = JSONDecoder()
         
@@ -34,7 +34,6 @@ struct MoviesManager {
                    let poster = decodedData.results[i].poster_path {
                     
                     let ratingString = NSString(format: "%.1f", rating)
-                    
                     let movies = MoviesModel(movieId: id,
                                              movieName: name,
                                              movieReleaseDate: releaseDate,
@@ -48,15 +47,13 @@ struct MoviesManager {
                     posterPathList.append(poster)
                     
                 }
-                
-                
             }
             
-            let moviesList = MoviesModel2(idList: idList,
-                                          nameList: nameList,
-                                          releasedateList: releaseDateList,
-                                          ratingList: ratingList,
-                                          posterPath: posterPathList)
+            let moviesList = MoviesListModel(idList: idList,
+                                             nameList: nameList,
+                                             releasedateList: releaseDateList,
+                                             ratingList: ratingList,
+                                             posterPath: posterPathList)
             return moviesList
             
         } catch {
@@ -64,5 +61,39 @@ struct MoviesManager {
             return nil
         }
     }
+    
+    func parseCast(_ castData: Data) -> CastListModel? {
+        
+        let decoder = JSONDecoder()
+        
+        var nameList = [String]()
+        var profilePathList = [String]()
+        var characterList = [String]()
+        
+        do {
+            let decodedData = try decoder.decode(CastData.self, from: castData)
+            
+            if let name = decodedData.cast[0].name,
+               let profile_path = decodedData.cast[0].profile_path,
+               let character = decodedData.cast[0].character {
+                let cast = CastModel(castName: name,
+                                     castProfilePath: profile_path,
+                                     castCharacter: character)
+                
+                nameList.append(name)
+                profilePathList.append(profile_path)
+                characterList.append(character)
+            }
+                
+                let castList = CastListModel(nameList: nameList,
+                                            profilepathList: profilePathList,
+                                            characterList: characterList)
+                
+                    
+                return castList
+        } catch {
+            print(error)
+            return nil
+        }
+    }
 }
-

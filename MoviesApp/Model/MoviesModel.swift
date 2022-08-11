@@ -15,10 +15,12 @@ struct MoviesModel {
     let posterPhoto: String
 }
 
-struct MoviesModel2 {
+struct MoviesListModel {
     let idList: [Int]
     let nameList: [String]
     let releasedateList: [String]
     let ratingList: [String]
     let posterPath: [String]
 }
+
+

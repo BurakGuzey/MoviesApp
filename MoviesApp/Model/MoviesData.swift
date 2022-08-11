@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct MoviesData: Codable {
     let results: [Results]
@@ -18,3 +19,7 @@ struct Results: Codable {
     let vote_average: Float?
     let poster_path: String?
 }
+
+
+
+

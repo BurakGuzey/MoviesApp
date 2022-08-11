@@ -50,14 +50,21 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iKS-It-Fv2">
+                                        <rect key="frame" x="403" y="10" width="47" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="star" catalog="system"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="YwV-Ad-nlq" firstAttribute="top" secondItem="6iI-WO-n4M" secondAttribute="top" constant="10" id="6ot-Lh-XeW"/>
-                                    <constraint firstItem="YCc-gr-i6W" firstAttribute="leading" secondItem="YwV-Ad-nlq" secondAttribute="trailing" constant="10" id="T3o-bM-9Ul"/>
+                                    <constraint firstItem="iKS-It-Fv2" firstAttribute="top" secondItem="6iI-WO-n4M" secondAttribute="top" constant="10" id="1ty-Rr-cmV"/>
+                                    <constraint firstItem="YwV-Ad-nlq" firstAttribute="top" secondItem="YCc-gr-i6W" secondAttribute="top" id="LYE-16-shf"/>
+                                    <constraint firstItem="YwV-Ad-nlq" firstAttribute="leading" secondItem="gaj-0C-7nb" secondAttribute="trailing" constant="10" id="Q9f-B3-qrj"/>
+                                    <constraint firstAttribute="trailing" secondItem="iKS-It-Fv2" secondAttribute="trailing" constant="10" id="ZYJ-Zl-mhd"/>
                                     <constraint firstItem="YCc-gr-i6W" firstAttribute="top" secondItem="6iI-WO-n4M" secondAttribute="top" constant="10" id="aeo-9A-Wyj"/>
+                                    <constraint firstItem="YCc-gr-i6W" firstAttribute="leading" secondItem="YwV-Ad-nlq" secondAttribute="trailing" constant="10" id="ckx-0L-gtp"/>
                                     <constraint firstItem="gaj-0C-7nb" firstAttribute="top" secondItem="6iI-WO-n4M" secondAttribute="top" constant="10" id="fjr-XJ-qEb"/>
-                                    <constraint firstItem="YwV-Ad-nlq" firstAttribute="leading" secondItem="gaj-0C-7nb" secondAttribute="trailing" constant="10" id="qYx-04-jlY"/>
                                     <constraint firstItem="gaj-0C-7nb" firstAttribute="leading" secondItem="6iI-WO-n4M" secondAttribute="leading" constant="10" id="vww-US-pMp"/>
                                 </constraints>
                             </view>
@@ -97,6 +104,7 @@
     </objects>
     <resources>
         <image name="circle.fill" catalog="system" width="32" height="32"/>
+        <image name="star" catalog="system" width="32" height="32"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
