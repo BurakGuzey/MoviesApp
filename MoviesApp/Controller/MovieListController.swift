@@ -51,7 +51,15 @@ extension MovieListController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        navigationController?.pushViewController(DetailPageController(), animated: true)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "DetailPageController") as? DetailPageController
+        vc?.name = nameList[indexPath.row]
+        vc?.poster = imageList[indexPath.row]
+        vc?.releaseDate = realesedateList[indexPath.row]
+        vc?.runTime = "xx"
+        vc?.revenue = "xx"
+        vc?.overview = "xx"
+        vc?.budget = "xx"
+        navigationController?.pushViewController(vc!, animated: true)
     }
     
 }

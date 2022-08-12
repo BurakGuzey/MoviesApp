@@ -71,7 +71,7 @@
         <!--Detail Page Controller-->
         <scene sceneID="RFP-zA-QmA">
             <objects>
-                <viewController id="pPQ-Oz-RK4" customClass="DetailPageController" customModule="MoviesApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailPageController" id="pPQ-Oz-RK4" customClass="DetailPageController" customModule="MoviesApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Gv-M8-ABJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -296,20 +296,21 @@
                                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bOW-dN-Nv8">
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="240"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="YPM-a9-c82">
-                                                                    <size key="itemSize" width="128" height="128"/>
+                                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="YPM-a9-c82">
+                                                                    <size key="itemSize" width="165" height="233"/>
                                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                 </collectionViewFlowLayout>
                                                                 <cells>
                                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CastCell" id="KIv-QE-V47">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                                        <rect key="frame" x="0.0" y="3.5" width="165" height="233"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="G9O-DI-E4n">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="165" height="233"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                         </collectionViewCellContentView>
+                                                                        <size key="customSize" width="165" height="233"/>
                                                                     </collectionViewCell>
                                                                 </cells>
                                                             </collectionView>
@@ -399,10 +400,22 @@
                     </view>
                     <navigationItem key="navigationItem" id="Oxe-is-q5Z"/>
                     <size key="freeformSize" width="414" height="800"/>
+                    <connections>
+                        <outlet property="CastCollectionView" destination="bOW-dN-Nv8" id="43N-xL-5sk"/>
+                        <outlet property="budgetLabel" destination="0gh-55-UgO" id="Md8-9w-yzo"/>
+                        <outlet property="castCollectionView" destination="bOW-dN-Nv8" id="uXz-fo-eIk"/>
+                        <outlet property="genresLabel" destination="sG1-mP-diZ" id="APT-ph-Ss8"/>
+                        <outlet property="movieName" destination="79u-WU-FLQ" id="62g-2s-8jQ"/>
+                        <outlet property="moviePoster" destination="PcJ-zQ-W6X" id="YgC-sx-kQO"/>
+                        <outlet property="overviewText" destination="a6p-60-4Ni" id="ZX7-8v-mNZ"/>
+                        <outlet property="releaseDateLabel" destination="YZQ-dd-rT1" id="peT-ma-y8k"/>
+                        <outlet property="revenueLabel" destination="Nm9-Ie-2Bn" id="OPd-uk-jN8"/>
+                        <outlet property="runTimeLabel" destination="EFY-ap-ocM" id="mzo-q1-Khe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="221-Co-cPP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2730" y="38"/>
+            <point key="canvasLocation" x="2728.985507246377" y="37.5"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="t75-K9-bSL">
