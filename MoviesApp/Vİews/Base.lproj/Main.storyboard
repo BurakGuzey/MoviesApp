@@ -189,7 +189,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BudgetValue" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gh-55-UgO">
-                                                        <rect key="frame" x="280" y="10" width="97" height="21"/>
+                                                        <rect key="frame" x="230" y="10" width="97" height="21"/>
                                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -200,7 +200,7 @@
                                                     <constraint firstAttribute="bottom" secondItem="9b4-hi-TCc" secondAttribute="bottom" constant="10" id="Cl6-EC-xqO"/>
                                                     <constraint firstItem="9b4-hi-TCc" firstAttribute="top" secondItem="XUH-q2-Wdo" secondAttribute="top" constant="10" id="KVz-Th-lLm"/>
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0gh-55-UgO" secondAttribute="trailing" constant="10" id="Rn4-RX-ePM"/>
-                                                    <constraint firstItem="0gh-55-UgO" firstAttribute="leading" secondItem="9b4-hi-TCc" secondAttribute="trailing" constant="200" id="ccf-1B-Soe"/>
+                                                    <constraint firstItem="0gh-55-UgO" firstAttribute="leading" secondItem="9b4-hi-TCc" secondAttribute="trailing" constant="150" id="ccf-1B-Soe"/>
                                                     <constraint firstItem="9b4-hi-TCc" firstAttribute="leading" secondItem="XUH-q2-Wdo" secondAttribute="leading" constant="10" id="kGc-e0-Fnu"/>
                                                     <constraint firstItem="0gh-55-UgO" firstAttribute="top" secondItem="XUH-q2-Wdo" secondAttribute="top" constant="10" id="riw-6D-zWX"/>
                                                     <constraint firstAttribute="bottom" secondItem="0gh-55-UgO" secondAttribute="bottom" constant="10" id="vfz-c3-Tg5"/>
@@ -226,7 +226,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RevenueValue" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nm9-Ie-2Bn">
-                                                        <rect key="frame" x="280" y="10" width="106.5" height="21"/>
+                                                        <rect key="frame" x="230" y="10" width="106.5" height="21"/>
                                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -237,7 +237,7 @@
                                                     <constraint firstItem="Nm9-Ie-2Bn" firstAttribute="top" secondItem="DiD-Mc-qX3" secondAttribute="top" constant="10" id="A1R-CV-JBG"/>
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Nm9-Ie-2Bn" secondAttribute="trailing" constant="10" id="BEW-Bj-4tE"/>
                                                     <constraint firstAttribute="bottom" secondItem="Nm9-Ie-2Bn" secondAttribute="bottom" constant="10" id="EJb-e2-a73"/>
-                                                    <constraint firstItem="Nm9-Ie-2Bn" firstAttribute="leading" secondItem="az3-Zv-57N" secondAttribute="trailing" constant="200" id="PpO-kX-jBU"/>
+                                                    <constraint firstItem="Nm9-Ie-2Bn" firstAttribute="leading" secondItem="az3-Zv-57N" secondAttribute="trailing" constant="150" id="PpO-kX-jBU"/>
                                                     <constraint firstAttribute="bottom" secondItem="az3-Zv-57N" secondAttribute="bottom" constant="10" id="cJR-XA-7QO"/>
                                                     <constraint firstItem="az3-Zv-57N" firstAttribute="top" secondItem="DiD-Mc-qX3" secondAttribute="top" constant="10" id="naO-zV-kYX"/>
                                                     <constraint firstItem="az3-Zv-57N" firstAttribute="leading" secondItem="DiD-Mc-qX3" secondAttribute="leading" constant="10" id="r5W-75-cwO"/>
@@ -263,7 +263,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GenresNames" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sG1-mP-diZ">
-                                                        <rect key="frame" x="280" y="10" width="108" height="21"/>
+                                                        <rect key="frame" x="230" y="10" width="108" height="21"/>
                                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -277,7 +277,7 @@
                                                     <constraint firstItem="6IH-5D-ute" firstAttribute="top" secondItem="9lQ-d2-zxS" secondAttribute="top" constant="10" id="iS6-uj-sX4"/>
                                                     <constraint firstAttribute="bottom" secondItem="6IH-5D-ute" secondAttribute="bottom" constant="10" id="lGI-WF-fXY"/>
                                                     <constraint firstAttribute="bottom" secondItem="sG1-mP-diZ" secondAttribute="bottom" constant="10" id="vbx-do-PIx"/>
-                                                    <constraint firstItem="sG1-mP-diZ" firstAttribute="leading" secondItem="6IH-5D-ute" secondAttribute="trailing" constant="200" id="wl9-bw-qOv"/>
+                                                    <constraint firstItem="sG1-mP-diZ" firstAttribute="leading" secondItem="6IH-5D-ute" secondAttribute="trailing" constant="150" id="wl9-bw-qOv"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MLb-o4-aiB" userLabel="Line5">
@@ -484,9 +484,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="circle.fill" catalog="system" width="32" height="32"/>
-        <image name="film.fill" catalog="system" width="32" height="32"/>
-        <image name="star.fill" catalog="system" width="32" height="32"/>
+        <image name="circle.fill" catalog="system" width="128" height="121"/>
+        <image name="film.fill" catalog="system" width="128" height="93"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

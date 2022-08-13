@@ -9,6 +9,7 @@ import UIKit
 
 class MovieListController: UIViewController, UITableViewDelegate {
     
+    //MARK: - Variables
     
     var moviesManager = MoviesManager()
     var nameList = [String]()
@@ -24,9 +25,14 @@ class MovieListController: UIViewController, UITableViewDelegate {
     var movieHomePage = String()
     var movieRevenue = Int()
     var movieRuntime = Int()
-    var movieGenres = String()
     var detailUrlString = String()
-   
+    var genreList = [String]()
+    
+    
+    var castNameList = [String]()
+    var castProfilePathList = [String]()
+    var castPhotoList = [UIImage]()
+    var characterNameList = [String]()
     
     @IBOutlet weak var listTableView: UITableView!
     
@@ -70,10 +76,15 @@ extension MovieListController: UITableViewDataSource {
         vc?.revenue = movieRevenue
         vc?.overview = overviewTextList[indexPath.row]
         vc?.budget = movieBudget
+        vc?.runTime = movieRuntime
+        getCastDetail(movieNum: indexPath.row, list: idList)
         navigationController?.pushViewController(vc!, animated: true)
     }
     
 }
+
+//MARK: - MovieListPage
+
 extension MovieListController {
     
     func performRequest(with urlString: URL) {
@@ -149,7 +160,7 @@ extension MovieListController {
     }
 }
 
-
+//MARK: - DetailPage
 
 extension MovieListController {
     
@@ -161,8 +172,8 @@ extension MovieListController {
                 return
             }
             if let safeData = data {
-                if let detailList = self.moviesManager.parseMovieDetail(safeData) {
-                    self.didUploadMovieDetails(detailList)
+                if let details = self.moviesManager.parseMovieDetail(safeData) {
+                    self.didUploadMovieDetails(details)
                 }
             }
         }
@@ -171,15 +182,14 @@ extension MovieListController {
     
     func didUploadMovieDetails(_ details: MovieDetailModel) {
         DispatchQueue.main.async { [self] in
-        
-            print(details)
+            
             self.movieBudget = details.movieBudget
-            self.movieHomePage = details.movieHomePage
             self.movieRevenue = details.movieRevenue
             self.movieRuntime = details.movieRuntime
-            print(movieBudget)
+            self.genreList = details.genreList
+            print(genreList)
+            // how to reload this View?
         }
-            
     }
     
     func getMovieDetail(movieNum: Int, list: [Int]) {
@@ -191,20 +201,49 @@ extension MovieListController {
             URLQueryItem(name: "api_key", value: moviesManager.apiKey)
         ]
         let detailUrl = components.url
-        print(idList)
-        print(movieNum)
         performDetailRequest(with: detailUrl!)
     }
-
-
-//func getCastDetail(movieNum: Int, list: [Int]) {
-//    var components = URLComponents()
-//    components.scheme = "https"
-//    components.host = "api.themoviedb.org"
-//    components.path = "/3/movie/\(list[movieNum])/credits"
-//    components.queryItems = [
-//        URLQueryItem(name: "api_key", value: moviesManager.apiKey)
-//    ]
-//    let castUrl = components.url
-//}
+    
+    //MARK: - Cast&CastDetailPage
+    
+    func performCastRequest(with urlString: URL) {
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: urlString) { (data, response, error) in
+            if error != nil {
+                print(error!)
+                return
+            }
+            if let safeData = data {
+                if let details = self.moviesManager.parseCast(safeData) {
+                    self.didUploadCastDetails(details)
+                }
+            }
+        }
+        task.resume()
+    }
+    func getCastDetail(movieNum: Int, list: [Int]) {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.themoviedb.org"
+        components.path = "/3/movie/\(list[movieNum])/credits"
+        components.queryItems = [
+            URLQueryItem(name: "api_key", value: moviesManager.apiKey)
+        ]
+        let castUrl = components.url
+    }
+    func didUploadCastDetails(_ castList: CastListModel) {
+        DispatchQueue.main.async { [self] in
+            
+            self.castNameList = castList.castNameList
+            self.castProfilePathList = castList.profilepathList
+            self.characterNameList = castList.characterList
+           
+            
+            // how to reload this View?
+        }
+    }
+    
+    func getCastPhoto(index: Int, castList: [String]) {
+        URLImage(index: index, List: castList)
+    }
 }

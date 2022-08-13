@@ -11,6 +11,7 @@ struct MoviesManager {
     
     let apiKey = "16e807f61c3e7c6382feff585c3859ad"
     
+    //MARK: - MovieList
     
     func parseMovieList(_ moviesData: Data) -> MoviesListModel? {
         
@@ -66,61 +67,74 @@ struct MoviesManager {
         }
     }
     
+    //MARK: - Movie Details
+    
     func parseMovieDetail(_ detailData: Data) -> MovieDetailModel? {
         
         let decoder = JSONDecoder()
-
+        
         do {
             let decodedData = try decoder.decode(MovieDetailData.self, from: detailData)
-            
+            var genreList = [String]()
             let movieBudget = decodedData.budget
             let movieHomePage = decodedData.homepage
             let movieRevenue = decodedData.revenue
             let movieRuntime = decodedData.runtime
+            
+            for i in 0...2 {
+                if let movieGenre = decodedData.genres[i].name {
+                genreList.append(movieGenre)
+                }
+            }
             let details = MovieDetailModel(movieBudget: movieBudget,
-                                            movieHomePage: movieHomePage,
-                                            movieRevenue: movieRevenue,
-                                            movieRuntime: movieRuntime)
-          print("\(movieBudget) manager içi")
+                                           movieHomePage: movieHomePage,
+                                           movieRevenue: movieRevenue,
+                                           movieRuntime: movieRuntime,
+                                           genreList: genreList)
+            
             return details
         } catch {
             print(error)
             return nil
         }
     }
+
+//MARK: - Cast
+
+
+func parseCast(_ castData: Data) -> CastListModel? {
+    
+    let decoder = JSONDecoder()
+    
+    var nameList = [String]()
+    var profilePathList = [String]()
+    var characterList = [String]()
+    
+    do {
+        let decodedData = try decoder.decode(CastData.self, from: castData)
+        
+        for i in 0...5 {
+        if let name = decodedData.cast[i].name,
+           let profile_path = decodedData.cast[i].profile_path,
+           let character = decodedData.cast[i].character {
+            let cast = CastModel(castName: name,
+                                 castProfilePath: profile_path,
+                                 castCharacter: character)
+            
+            nameList.append(name)
+            profilePathList.append(profile_path)
+            characterList.append(character)
+        }
+        }
+        let castList = CastListModel(castNameList: nameList,
+                                     profilepathList: profilePathList,
+                                     characterList: characterList)
+        
+        
+        return castList
+    } catch {
+        print(error)
+        return nil
+    }
 }
-//
-//func parseCast(_ castData: Data) -> CastListModel? {
-//    
-//    let decoder = JSONDecoder()
-//    
-//    var nameList = [String]()
-//    var profilePathList = [String]()
-//    var characterList = [String]()
-//    
-//    do {
-//        let decodedData = try decoder.decode(CastData.self, from: castData)
-//        
-//        if let name = decodedData.cast[0].name,
-//           let profile_path = decodedData.cast[0].profile_path,
-//           let character = decodedData.cast[0].character {
-//            let cast = CastModel(castName: name,
-//                                 castProfilePath: profile_path,
-//                                 castCharacter: character)
-//            
-//            nameList.append(name)
-//            profilePathList.append(profile_path)
-//            characterList.append(character)
-//        }
-//        
-//        let castList = CastListModel(nameList: nameList,
-//                                     profilepathList: profilePathList,
-//                                     characterList: characterList)
-//        
-//        
-//        return castList
-//    } catch {
-//        print(error)
-//        return nil
-//    }
-//}
+}

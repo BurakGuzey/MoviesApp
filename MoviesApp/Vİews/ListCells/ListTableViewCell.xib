@@ -103,8 +103,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="circle.fill" catalog="system" width="32" height="32"/>
-        <image name="star" catalog="system" width="32" height="32"/>
+        <image name="circle.fill" catalog="system" width="128" height="121"/>
+        <image name="star" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

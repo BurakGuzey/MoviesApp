@@ -43,20 +43,17 @@ class DetailPageController: UIViewController {
         castCollectionView.dataSource = self
         castCollectionView.delegate = self
 
-       
-        
-    }
-    override func viewWillAppear(_ animated: Bool) {
         castCollectionView.register(UINib(nibName: "CastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CastCell")
         
-        let budgetString = String(budget)
-        let revenueString = String(revenue)
+        var budgetInM = budget/1000000
+        var revenueInM = revenue/1000000
+        releaseDateLabel.text = releaseDate
+        budgetLabel.text = "\(String(budgetInM))M $"
+        revenueLabel.text = "\(String(revenueInM))M $"
         movieName.text = name
         moviePoster.image = poster
-        releaseDateLabel.text = releaseDate
-        budgetLabel.text = budgetString
-        revenueLabel.text = revenueString
         overviewText.text = overview
+        runTimeLabel.text = "\(String(runTime)) mins"
     }
 }
 

@@ -128,12 +128,12 @@
 			isa = PBXGroup;
 			children = (
 				A16147D8287CDB2300F66D97 /* MoviesData.swift */,
-				A161201328A3D72B0040E374 /* CastData.swift */,
 				A184615228A7050C005E36D6 /* MovieDetailData.swift */,
+				A161201328A3D72B0040E374 /* CastData.swift */,
 				A17E274F28763F2A00BA58C5 /* MoviesManager.swift */,
 				A16147DA287CEAD500F66D97 /* MoviesModel.swift */,
-				A161201128A3D6E60040E374 /* CastModel.swift */,
 				A184615428A7052A005E36D6 /* MovieDetailModel.swift */,
+				A161201128A3D6E60040E374 /* CastModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

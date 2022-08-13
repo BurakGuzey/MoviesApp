@@ -14,7 +14,7 @@ struct CastModel {
 }
 
 struct CastListModel: Codable {
-    let nameList: [String]
+    let castNameList: [String]
     let profilepathList: [String]
     let characterList: [String]
 }

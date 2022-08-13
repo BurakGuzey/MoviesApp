@@ -12,6 +12,7 @@ struct  MovieDetailModel {
     let movieHomePage: String
     let movieRevenue: Int
     let movieRuntime: Int
+    let genreList: [String]
 }
 
 
