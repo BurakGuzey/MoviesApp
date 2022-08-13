@@ -10,6 +10,9 @@ import UIKit
 
 class DetailPageController: UIViewController {
     
+    var moviesManager = MoviesManager()
+    var movieListController = MovieListController()
+    
     @IBOutlet weak var moviePoster: UIImageView!
     @IBOutlet weak var movieName: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
@@ -23,13 +26,16 @@ class DetailPageController: UIViewController {
     var name = String()
     var poster = UIImage()
     var releaseDate = String()
-    var runTime = String()
-    var revenue = String()
+    var runTime = Int()
+    var revenue = Int()
     var overview = String()
-    var budget = String()
+    var budget = Int()
     var genres = [String]()
     var castNamePass = String()
     var characterNamePass = String()
+    
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,17 +43,20 @@ class DetailPageController: UIViewController {
         castCollectionView.dataSource = self
         castCollectionView.delegate = self
 
+       
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
         castCollectionView.register(UINib(nibName: "CastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CastCell")
         
-        
-        
+        let budgetString = String(budget)
+        let revenueString = String(revenue)
         movieName.text = name
         moviePoster.image = poster
         releaseDateLabel.text = releaseDate
-        budgetLabel.text = budget
-        revenueLabel.text = revenue
+        budgetLabel.text = budgetString
+        revenueLabel.text = revenueString
         overviewText.text = overview
-        
     }
 }
 
@@ -64,3 +73,5 @@ extension DetailPageController: UICollectionViewDelegate, UICollectionViewDataSo
         return cell
     }
 }
+
+

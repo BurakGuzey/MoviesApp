@@ -13,6 +13,7 @@ struct MoviesModel {
     let movieReleaseDate: String
     let ratingOfMovie: Float
     let posterPhoto: String
+    let overviewText: String
 }
 
 struct MoviesListModel {
@@ -21,6 +22,7 @@ struct MoviesListModel {
     let releasedateList: [String]
     let ratingList: [String]
     let posterPath: [String]
+    let overviewTextList: [String]
 }
 
 

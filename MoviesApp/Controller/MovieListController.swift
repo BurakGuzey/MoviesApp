@@ -17,6 +17,16 @@ class MovieListController: UIViewController, UITableViewDelegate {
     var posterPathList = [String]()
     var imageList = [UIImage]()
     var imageUrlString = String()
+    var overviewTextList = [String]()
+    var idList = [Int]()
+    
+    var movieBudget = Int()
+    var movieHomePage = String()
+    var movieRevenue = Int()
+    var movieRuntime = Int()
+    var movieGenres = String()
+    var detailUrlString = String()
+   
     
     @IBOutlet weak var listTableView: UITableView!
     
@@ -52,13 +62,14 @@ extension MovieListController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let vc = storyboard?.instantiateViewController(withIdentifier: "DetailPageController") as? DetailPageController
+        getMovieDetail(movieNum: indexPath.row, list: idList)
         vc?.name = nameList[indexPath.row]
         vc?.poster = imageList[indexPath.row]
         vc?.releaseDate = realesedateList[indexPath.row]
-        vc?.runTime = "xx"
-        vc?.revenue = "xx"
-        vc?.overview = "xx"
-        vc?.budget = "xx"
+        vc?.runTime = movieRuntime
+        vc?.revenue = movieRevenue
+        vc?.overview = overviewTextList[indexPath.row]
+        vc?.budget = movieBudget
         navigationController?.pushViewController(vc!, animated: true)
     }
     
@@ -88,6 +99,8 @@ extension MovieListController {
             self.realesedateList = moviesList.releasedateList
             self.ratingList = moviesList.ratingList
             self.posterPathList = moviesList.posterPath
+            self.overviewTextList = moviesList.overviewTextList
+            self.idList = moviesList.idList
             
             var counter: Int = 0
             
@@ -113,7 +126,7 @@ extension MovieListController {
         components.host = "api.themoviedb.org"
         components.path = "/3/movie/popular"
         components.queryItems = [
-            URLQueryItem(name: "api_key", value: moviesManager.apiKey),
+            URLQueryItem(name: "api_key", value: moviesManager.apiKey)
         ]
         let url = components.url
         performRequest(with: url!)
@@ -138,4 +151,60 @@ extension MovieListController {
 
 
 
+extension MovieListController {
+    
+    func performDetailRequest(with urlString: URL) {
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: urlString) { (data, response, error) in
+            if error != nil {
+                print(error!)
+                return
+            }
+            if let safeData = data {
+                if let detailList = self.moviesManager.parseMovieDetail(safeData) {
+                    self.didUploadMovieDetails(detailList)
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    func didUploadMovieDetails(_ details: MovieDetailModel) {
+        DispatchQueue.main.async { [self] in
+        
+            print(details)
+            self.movieBudget = details.movieBudget
+            self.movieHomePage = details.movieHomePage
+            self.movieRevenue = details.movieRevenue
+            self.movieRuntime = details.movieRuntime
+            print(movieBudget)
+        }
+            
+    }
+    
+    func getMovieDetail(movieNum: Int, list: [Int]) {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.themoviedb.org"
+        components.path = "/3/movie/\(list[movieNum])"
+        components.queryItems = [
+            URLQueryItem(name: "api_key", value: moviesManager.apiKey)
+        ]
+        let detailUrl = components.url
+        print(idList)
+        print(movieNum)
+        performDetailRequest(with: detailUrl!)
+    }
 
+
+//func getCastDetail(movieNum: Int, list: [Int]) {
+//    var components = URLComponents()
+//    components.scheme = "https"
+//    components.host = "api.themoviedb.org"
+//    components.path = "/3/movie/\(list[movieNum])/credits"
+//    components.queryItems = [
+//        URLQueryItem(name: "api_key", value: moviesManager.apiKey)
+//    ]
+//    let castUrl = components.url
+//}
+}
