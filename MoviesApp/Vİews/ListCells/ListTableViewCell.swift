@@ -8,7 +8,7 @@
 import UIKit
 
 class ListTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var movieName: UILabel!
     @IBOutlet weak var releaseDate: UILabel!

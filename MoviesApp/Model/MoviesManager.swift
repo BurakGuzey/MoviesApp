@@ -83,7 +83,7 @@ struct MoviesManager {
             
             for i in 0...2 {
                 if let movieGenre = decodedData.genres[i].name {
-                genreList.append(movieGenre)
+                    genreList.append(movieGenre)
                 }
             }
             let details = MovieDetailModel(movieBudget: movieBudget,
@@ -98,43 +98,43 @@ struct MoviesManager {
             return nil
         }
     }
-
-//MARK: - Cast
-
-
-func parseCast(_ castData: Data) -> CastListModel? {
     
-    let decoder = JSONDecoder()
+    //MARK: - Cast
     
-    var nameList = [String]()
-    var profilePathList = [String]()
-    var characterList = [String]()
     
-    do {
-        let decodedData = try decoder.decode(CastData.self, from: castData)
+    func parseCast(_ castData: Data) -> CastListModel? {
         
-        for i in 0...5 {
-        if let name = decodedData.cast[i].name,
-           let profile_path = decodedData.cast[i].profile_path,
-           let character = decodedData.cast[i].character {
-            let cast = CastModel(castName: name,
-                                 castProfilePath: profile_path,
-                                 castCharacter: character)
+        let decoder = JSONDecoder()
+        
+        var nameList = [String]()
+        var profilePathList = [String]()
+        var characterList = [String]()
+        
+        do {
+            let decodedData = try decoder.decode(CastData.self, from: castData)
             
-            nameList.append(name)
-            profilePathList.append(profile_path)
-            characterList.append(character)
+            for i in 0...5 {
+                if let name = decodedData.cast[i].name,
+                   let profile_path = decodedData.cast[i].profile_path,
+                   let character = decodedData.cast[i].character {
+                    let cast = CastModel(castName: name,
+                                         castProfilePath: profile_path,
+                                         castCharacter: character)
+                    
+                    nameList.append(name)
+                    profilePathList.append(profile_path)
+                    characterList.append(character)
+                }
+            }
+            let castList = CastListModel(castNameList: nameList,
+                                         profilepathList: profilePathList,
+                                         characterList: characterList)
+            
+            
+            return castList
+        } catch {
+            print(error)
+            return nil
         }
-        }
-        let castList = CastListModel(castNameList: nameList,
-                                     profilepathList: profilePathList,
-                                     characterList: characterList)
-        
-        
-        return castList
-    } catch {
-        print(error)
-        return nil
     }
-}
 }

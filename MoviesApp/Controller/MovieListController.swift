@@ -67,20 +67,24 @@ extension MovieListController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let vc = storyboard?.instantiateViewController(withIdentifier: "DetailPageController") as? DetailPageController
+        
+        let detailPageController = storyboard?.instantiateViewController(withIdentifier: "DetailPageController") as? DetailPageController
         getMovieDetail(movieNum: indexPath.row, list: idList)
-        vc?.name = nameList[indexPath.row]
-        vc?.poster = imageList[indexPath.row]
-        vc?.releaseDate = realesedateList[indexPath.row]
-        vc?.runTime = movieRuntime
-        vc?.revenue = movieRevenue
-        vc?.overview = overviewTextList[indexPath.row]
-        vc?.budget = movieBudget
-        vc?.runTime = movieRuntime
+        detailPageController?.name = nameList[indexPath.row]
+        detailPageController?.poster = imageList[indexPath.row]
+        detailPageController?.releaseDate = realesedateList[indexPath.row]
+        detailPageController?.runTime = movieRuntime
+        detailPageController?.revenue = movieRevenue
+        detailPageController?.overview = overviewTextList[indexPath.row]
+        detailPageController?.budget = movieBudget
+        detailPageController?.runTime = movieRuntime
+
         getCastDetail(movieNum: indexPath.row, list: idList)
-        navigationController?.pushViewController(vc!, animated: true)
+
+        navigationController?.pushViewController(detailPageController!, animated: true)
+        
     }
-    
+
 }
 
 //MARK: - MovieListPage
@@ -187,9 +191,11 @@ extension MovieListController {
             self.movieRevenue = details.movieRevenue
             self.movieRuntime = details.movieRuntime
             self.genreList = details.genreList
-            print(genreList)
-            // how to reload this View?
+            self.movieHomePage = details.movieHomePage
+            
+            // how to load detailPage again?
         }
+        
     }
     
     func getMovieDetail(movieNum: Int, list: [Int]) {
@@ -237,13 +243,19 @@ extension MovieListController {
             self.castNameList = castList.castNameList
             self.castProfilePathList = castList.profilepathList
             self.characterNameList = castList.characterList
-           
             
-            // how to reload this View?
         }
     }
     
     func getCastPhoto(index: Int, castList: [String]) {
         URLImage(index: index, List: castList)
+    }
+}
+extension MovieListController {
+    func minutesToHoursMinutes(_ mins: Int) -> ( Int, Int) {
+        return (mins / 3600, (mins % 3600))
+    }
+    func moneyInMs(rev: Int, bud: Int) -> (Int, Int){
+        return (rev/1000000, bud/1000000)
     }
 }
