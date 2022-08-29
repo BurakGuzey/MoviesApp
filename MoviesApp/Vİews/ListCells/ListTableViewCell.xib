@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReusableCell" rowHeight="140" id="KGk-i7-Jjw" customClass="ListTableViewCell" customModule="MoviesApp" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListTableViewCell" rowHeight="140" id="KGk-i7-Jjw" customClass="ListTableViewCell" customModule="MoviesApp" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="610" height="140"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -51,14 +51,17 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iKS-It-Fv2">
-                                        <rect key="frame" x="403" y="10" width="47" height="31"/>
+                                        <rect key="frame" x="403" y="37.5" width="47" height="31"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="star" catalog="system"/>
+                                        <connections>
+                                            <action selector="favButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="NDg-QB-SrU"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="iKS-It-Fv2" firstAttribute="top" secondItem="6iI-WO-n4M" secondAttribute="top" constant="10" id="1ty-Rr-cmV"/>
+                                    <constraint firstItem="iKS-It-Fv2" firstAttribute="centerY" secondItem="6iI-WO-n4M" secondAttribute="centerY" id="B5w-qH-yaX"/>
                                     <constraint firstItem="YwV-Ad-nlq" firstAttribute="top" secondItem="YCc-gr-i6W" secondAttribute="top" id="LYE-16-shf"/>
                                     <constraint firstItem="YwV-Ad-nlq" firstAttribute="leading" secondItem="gaj-0C-7nb" secondAttribute="trailing" constant="10" id="Q9f-B3-qrj"/>
                                     <constraint firstAttribute="trailing" secondItem="iKS-It-Fv2" secondAttribute="trailing" constant="10" id="ZYJ-Zl-mhd"/>
@@ -93,11 +96,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="circleImage" destination="YwV-Ad-nlq" id="H7g-ba-wNh"/>
-                <outlet property="movieImage" destination="BPZ-pT-c94" id="Sbf-sW-WpD"/>
-                <outlet property="movieName" destination="URC-OV-uI6" id="DXx-jy-cxj"/>
-                <outlet property="ratingOfMovie" destination="YCc-gr-i6W" id="7YW-nV-dGa"/>
-                <outlet property="releaseDate" destination="gaj-0C-7nb" id="9Mp-B7-nFV"/>
+                <outlet property="movieImage" destination="BPZ-pT-c94" id="a9J-dd-y8Y"/>
+                <outlet property="nameLabel" destination="URC-OV-uI6" id="XUH-Sk-pcG"/>
+                <outlet property="ratingLabel" destination="YCc-gr-i6W" id="ky4-Xi-Kym"/>
+                <outlet property="releaseDateLabel" destination="gaj-0C-7nb" id="u9f-tB-HBe"/>
             </connections>
             <point key="canvasLocation" x="189.85507246376812" y="53.571428571428569"/>
         </tableViewCell>
