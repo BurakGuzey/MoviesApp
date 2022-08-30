@@ -24,6 +24,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var castCollectionView: UICollectionView!
     @IBOutlet weak var revenueLabel: UILabel!
     
+    @IBOutlet weak var homePageTextLabel: UILabel!
     var movieId: Int?
     
     private var movieService = MovieService()
@@ -32,6 +33,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
             updateUI()
         }
     }
+    private var cast: [Cast] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +44,15 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
                 switch result {
                 case .success(let movie):
                     self.movieDetail = movie
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            movieService.getAllCast(id: id) { result in
+                switch result {
+                case .success(let response):
+                    self.cast = response.cast
+                    self.castCollectionView.reloadData()
                 case .failure(let error):
                     print(error)
                 }
@@ -63,33 +74,37 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return cast.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CastCollectionViewCell", for: indexPath) as! CastCollectionViewCell
+        cell.configure(cast: cast[indexPath.row])
         return cell
     }
     
     func updateUI() {
-        let budgetString = "\((movieDetail?.budget)!)M $"
-        let revenueString = "\((movieDetail?.revenue)!)M $"
-        let runTimeString = "\((movieDetail?.runtime)!)"
+        
+        let (h, m) = minutesToHoursMinutes((movieDetail?.runtime)!)
+        let (rev, bud) = amountInMs(rev: (movieDetail?.revenue)!, bud: (movieDetail?.budget)!)
+        let budgetString = "\(bud)M $"
+        let revenueString = "\(rev)M $"
+        let runTimeString = "\(h)h \(m)m"
         nameLabel.text = movieDetail?.title
         releaseDateLabel.text = movieDetail?.releaseDate
         overviewTextLabel.text = movieDetail?.overview
         runTimeLabel.text = runTimeString
         budgetValueLabel.text = budgetString
         revenueValueLabel.text = revenueString
-        
+        homePageTextLabel.text = movieDetail?.homepage
     }
 
-//    func minutesToHoursMinutes(_ mins: Int) -> (Int, Int) {
-//        return (mins / 60, (mins % 60))
-//    }
-//    func amountInMs(rev: Int, bud: Int) -> (Int, Int) {
-//        return (rev/1000000, bud/1000000)
-//    }
+    func minutesToHoursMinutes(_ mins: Int) -> (Int, Int) {
+        return (mins / 60, (mins % 60))
+    }
+    func amountInMs(rev: Int, bud: Int) -> (Int, Int) {
+        return (rev/1000000, bud/1000000)
+    }
     
 }
 

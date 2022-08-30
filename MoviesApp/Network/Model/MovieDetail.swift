@@ -16,7 +16,7 @@ struct MovieDetail: Codable {
     let posterPath: String?
     let budget: Int?
     let revenue: Int?
-    let homePage: String?
+    let homepage: String?
     let genres: [Genres]?
     let runtime: Int?
     let overview: String?
