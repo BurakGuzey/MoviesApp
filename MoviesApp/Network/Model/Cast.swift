@@ -12,5 +12,6 @@ struct Cast: Codable {
     let name: String?
     let character: String?
     let profilePath: String?
+    let id: Int?
     
 }

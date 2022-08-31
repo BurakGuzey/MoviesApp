@@ -11,6 +11,7 @@ import UIKit
 class DetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     
+    @IBOutlet weak var genresCollectionViewCell: UICollectionView!
     @IBOutlet weak var revenueValueLabel: UILabel!
     @IBOutlet weak var budgetValueLabel: UILabel!
     @IBOutlet weak var overviewTextLabel: UILabel!
@@ -40,7 +41,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         
         if let id = movieId {
-            movieService.getMovie(id: id) { result in
+            movieService.getMovieDetail(id: id) { result in
                 switch result {
                 case .success(let movie):
                     self.movieDetail = movie
@@ -71,6 +72,11 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         castCollectionView.register(UINib(nibName: "CastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CastCollectionViewCell")
         
+        genresCollectionViewCell.dataSource = self
+        genresCollectionViewCell.delegate = self
+        
+        genresCollectionViewCell.register(UINib(nibName: "GenresCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "GenresCollectionViewCell")
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -97,6 +103,9 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         budgetValueLabel.text = budgetString
         revenueValueLabel.text = revenueString
         homePageTextLabel.text = movieDetail?.homepage
+        let urlStringImage = URL(string: "https://image.tmdb.org/t/p/w500/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg")
+        movieImageView.kf.setImage(with: urlStringImage)
+        
     }
 
     func minutesToHoursMinutes(_ mins: Int) -> (Int, Int) {

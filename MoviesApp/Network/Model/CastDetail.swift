@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+struct CastDetail {
+    
+    let name: String?
+    let profilePath: String?
+    let biography: String?
+    let birthday: String?
+    let placeOfBirth: String?
+    let deathday: String?
+    
+}
