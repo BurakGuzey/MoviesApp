@@ -9,4 +9,19 @@ import UIKit
 
 class GenresCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var genresLabel: UILabel!
+    @IBOutlet weak var bubbleView: UIView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        bubbleView.layer.cornerRadius = 15
+        
+    }
+    
+    func configure(genres: Genres) {
+        
+        genresLabel.text = genres.name
+
+    }
 }

@@ -11,26 +11,31 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CastCollectionViewCell" id="gTV-IL-0wX" customClass="CastCollectionViewCell" customModule="MoviesApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
+            <rect key="frame" x="0.0" y="0.0" width="200" height="340"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
+                <rect key="frame" x="0.0" y="0.0" width="200" height="340"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IP9-1J-UMe" userLabel="ContentView">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="340"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="252" translatesAutoresizingMaskIntoConstraints="NO" id="gn5-OF-iYe">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="229"/>
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="ZzX-ak-ijx"/>
+                                    <constraint firstAttribute="width" constant="200" id="jGj-Qj-RRv"/>
+                                    <constraint firstAttribute="height" constant="250" id="wVM-Ti-Fm5"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CastNameLabel" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Lx-7x-IY8">
-                                <rect key="frame" x="10" y="239" width="180" height="23"/>
+                                <rect key="frame" x="10" y="260" width="180" height="23"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CharacterNameLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C56-6d-c59">
-                                <rect key="frame" x="10" y="272" width="180" height="18"/>
+                                <rect key="frame" x="10" y="293" width="180" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -38,16 +43,15 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="gn5-OF-iYe" secondAttribute="trailing" id="WFG-ui-iZP"/>
-                            <constraint firstItem="C56-6d-c59" firstAttribute="leading" secondItem="IP9-1J-UMe" secondAttribute="leading" constant="10" id="azi-nX-6Qv"/>
-                            <constraint firstItem="C56-6d-c59" firstAttribute="top" secondItem="8Lx-7x-IY8" secondAttribute="bottom" constant="10" id="b9u-dU-gKF"/>
-                            <constraint firstItem="8Lx-7x-IY8" firstAttribute="leading" secondItem="IP9-1J-UMe" secondAttribute="leading" constant="10" id="bDt-1D-liG"/>
-                            <constraint firstItem="gn5-OF-iYe" firstAttribute="leading" secondItem="IP9-1J-UMe" secondAttribute="leading" id="bJP-OQ-KVR"/>
-                            <constraint firstAttribute="trailing" secondItem="8Lx-7x-IY8" secondAttribute="trailing" constant="10" id="f0d-UJ-JtI"/>
-                            <constraint firstItem="gn5-OF-iYe" firstAttribute="top" secondItem="IP9-1J-UMe" secondAttribute="top" id="gTd-Bb-3KC"/>
-                            <constraint firstItem="8Lx-7x-IY8" firstAttribute="top" secondItem="gn5-OF-iYe" secondAttribute="bottom" constant="10" id="rqE-uR-zKw"/>
-                            <constraint firstAttribute="trailing" secondItem="C56-6d-c59" secondAttribute="trailing" constant="10" id="tnb-bS-MuR"/>
-                            <constraint firstAttribute="bottom" secondItem="C56-6d-c59" secondAttribute="bottom" constant="10" id="yXv-oN-XXH"/>
+                            <constraint firstItem="8Lx-7x-IY8" firstAttribute="top" secondItem="gn5-OF-iYe" secondAttribute="bottom" constant="10" id="05K-qw-9FQ"/>
+                            <constraint firstItem="C56-6d-c59" firstAttribute="leading" secondItem="IP9-1J-UMe" secondAttribute="leading" constant="10" id="5hk-p6-NAi"/>
+                            <constraint firstItem="8Lx-7x-IY8" firstAttribute="leading" secondItem="IP9-1J-UMe" secondAttribute="leading" constant="10" id="QYf-4U-COK"/>
+                            <constraint firstAttribute="trailing" secondItem="C56-6d-c59" secondAttribute="trailing" constant="10" id="Qj3-lp-bmK"/>
+                            <constraint firstAttribute="trailing" secondItem="8Lx-7x-IY8" secondAttribute="trailing" constant="10" id="Qj6-bk-bsE"/>
+                            <constraint firstAttribute="trailing" secondItem="gn5-OF-iYe" secondAttribute="trailing" id="auZ-6z-9ZU"/>
+                            <constraint firstItem="gn5-OF-iYe" firstAttribute="top" secondItem="IP9-1J-UMe" secondAttribute="top" id="k0i-7r-xW6"/>
+                            <constraint firstItem="gn5-OF-iYe" firstAttribute="leading" secondItem="IP9-1J-UMe" secondAttribute="leading" id="kcJ-cb-XGt"/>
+                            <constraint firstItem="C56-6d-c59" firstAttribute="top" secondItem="8Lx-7x-IY8" secondAttribute="bottom" constant="10" id="r1g-Zn-LYE"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -59,13 +63,13 @@
                 <constraint firstItem="IP9-1J-UMe" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="YEr-Ug-8O0"/>
                 <constraint firstItem="IP9-1J-UMe" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="jZq-G6-1eb"/>
             </constraints>
-            <size key="customSize" width="322" height="300"/>
+            <size key="customSize" width="322" height="340"/>
             <connections>
                 <outlet property="castImageView" destination="gn5-OF-iYe" id="GlC-Sa-Ahh"/>
                 <outlet property="castNameLabel" destination="8Lx-7x-IY8" id="FMq-mY-Dg6"/>
                 <outlet property="characterNameLabel" destination="C56-6d-c59" id="x3y-9D-7yf"/>
             </connections>
-            <point key="canvasLocation" x="195.6521739130435" y="43.526785714285715"/>
+            <point key="canvasLocation" x="195.6521739130435" y="56.919642857142854"/>
         </collectionViewCell>
     </objects>
     <resources>

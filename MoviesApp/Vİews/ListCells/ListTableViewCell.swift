@@ -21,13 +21,16 @@ class ListTableViewCell: UITableViewCell {
     func configure(movie: Movie) {
         
         let ratingString = String(movie.voteAverage!)
+        
         nameLabel.text = movie.title
         releaseDateLabel.text = movie.releaseDate
         ratingLabel.text = ratingString
-        let urlStringImage = URL(string: "https://image.tmdb.org/t/p/w500/ujr5pztc1oitbe7ViMUOilFaJ7s.jpg")
-        movieImage.kf.setImage(with: urlStringImage)
-        
+        if let imagePath = movie.posterPath {
+            let imageString = Constants.baseImageURL + imagePath
+            let urlStringImage = URL(string: imageString)
+            movieImage.kf.setImage(with: urlStringImage)
+        } else {
+            movieImage.image = #imageLiteral(resourceName: "NO PHOTO")
+        }
     }
-    
 }
-

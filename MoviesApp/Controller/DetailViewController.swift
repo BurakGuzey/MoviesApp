@@ -11,7 +11,7 @@ import UIKit
 class DetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     
-    @IBOutlet weak var genresCollectionViewCell: UICollectionView!
+    @IBOutlet weak var genresCollectionView: UICollectionView!
     @IBOutlet weak var revenueValueLabel: UILabel!
     @IBOutlet weak var budgetValueLabel: UILabel!
     @IBOutlet weak var overviewTextLabel: UILabel!
@@ -35,6 +35,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
     }
     private var cast: [Cast] = []
+    private var genres: [Genres] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +46,8 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
                 switch result {
                 case .success(let movie):
                     self.movieDetail = movie
+                    self.genres = movie.genres ?? []
+                    self.genresCollectionView.reloadData()
                 case .failure(let error):
                     print(error)
                 }
@@ -70,24 +73,37 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         castCollectionView.dataSource = self
         castCollectionView.delegate = self
         
+        genresCollectionView.dataSource = self
+        genresCollectionView.delegate = self
+        
+        
         castCollectionView.register(UINib(nibName: "CastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CastCollectionViewCell")
-        
-        genresCollectionViewCell.dataSource = self
-        genresCollectionViewCell.delegate = self
-        
-        genresCollectionViewCell.register(UINib(nibName: "GenresCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "GenresCollectionViewCell")
+        genresCollectionView.register(UINib(nibName: "GenresCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "GenresCollectionViewCell")
         
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cast.count
+        if collectionView == castCollectionView {
+            return cast.count
+        }
+        else {
+            return genres.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CastCollectionViewCell", for: indexPath) as! CastCollectionViewCell
-        cell.configure(cast: cast[indexPath.row])
-        return cell
+        if collectionView == castCollectionView {
+            let castCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CastCollectionViewCell", for: indexPath) as! CastCollectionViewCell
+            castCell.configure(cast: cast[indexPath.row])
+            return castCell
+        }
+        else {
+            let genresCell = collectionView.dequeueReusableCell(withReuseIdentifier: "GenresCollectionViewCell", for: indexPath) as! GenresCollectionViewCell
+            genresCell.configure(genres: genres[indexPath.row])
+            return genresCell
+        }
     }
+    
     
     func updateUI() {
         
@@ -103,16 +119,22 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         budgetValueLabel.text = budgetString
         revenueValueLabel.text = revenueString
         homePageTextLabel.text = movieDetail?.homepage
-        let urlStringImage = URL(string: "https://image.tmdb.org/t/p/w500/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg")
-        movieImageView.kf.setImage(with: urlStringImage)
         
+        if let imagePath = movieDetail?.posterPath {
+            let imageString = Constants.baseImageURL + imagePath
+            let urlStringImage = URL(string: imageString)
+            movieImageView.kf.setImage(with: urlStringImage)
+        } else {
+            movieImageView.image = #imageLiteral(resourceName: "NO PHOTO")
+        }
     }
-
+    
     func minutesToHoursMinutes(_ mins: Int) -> (Int, Int) {
-        return (mins / 60, (mins % 60))
+        return (mins / Constants.minsInAnHour, (mins % Constants.minsInAnHour))
     }
+    
     func amountInMs(rev: Int, bud: Int) -> (Int, Int) {
-        return (rev/1000000, bud/1000000)
+        return (rev/Constants.million, bud/Constants.million)
     }
     
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CastDetail {
+struct CastDetail: Codable {
     
     let name: String?
     let profilePath: String?

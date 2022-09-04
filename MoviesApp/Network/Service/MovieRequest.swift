@@ -10,17 +10,17 @@ import Foundation
 enum MovieRequest {
     
     case allMovies
-    case MovieDetail(id: Int)
+    case movieDetail(id: Int)
     
 }
 
 extension MovieRequest: Requestable {
-    
+
     var path: String {
         switch self {
         case .allMovies:
-            return "movie/popular"
-        case .MovieDetail(let id):
+            return ServiceConstants.allMoviesPath
+        case .movieDetail(let id):
             return "movie/\(id)"
         }
     }
@@ -28,7 +28,7 @@ extension MovieRequest: Requestable {
     var method: HTTPMethod {
         switch self {
         case .allMovies,
-             .MovieDetail:
+             .movieDetail:
             return .get
         }
     }
@@ -36,18 +36,19 @@ extension MovieRequest: Requestable {
     var parameters: Data? {
         switch self {
         case .allMovies,
-             .MovieDetail:
+             .movieDetail:
             return nil
         }
     }
-    
-    var queryItems: [String : String]? {
-        switch self {
-        case .allMovies,
-             .MovieDetail:
-            return nil 
-        }
-    }
+
+//    var queryItems: [URLQueryItem]? {
+//        switch self {
+//        case .allMovies:
+//            return
+//        case .movieDetail(id: let id):
+//            return
+//        }
+//    }
         
     
 }

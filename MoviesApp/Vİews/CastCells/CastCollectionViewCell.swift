@@ -17,10 +17,13 @@ class CastCollectionViewCell: UICollectionViewCell {
         
         castNameLabel.text = cast.name
         characterNameLabel.text = cast.character
-        let urlStringImage = URL(string: "https://image.tmdb.org/t/p/w500/jpurJ9jAcLCYjgHHfYF32m3zJYm.jpg")
-        castImageView.kf.setImage(with: urlStringImage)
-        
+        if let profilePath = cast.profilePath {
+            let imageString = Constants.baseImageURL + profilePath
+            let urlStringImage = URL(string: imageString)
+            castImageView.kf.setImage(with: urlStringImage)
+        } else {
+            castImageView.image = #imageLiteral(resourceName: "NO PHOTO")
+        }
     }
-    
 
 }

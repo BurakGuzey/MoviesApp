@@ -52,6 +52,7 @@ extension MovieListController: UITableViewDataSource {
             detailVC.movieId = movie[indexPath.row].id
             self.navigationController?.pushViewController(detailVC, animated: true)
         }
+        listTableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

@@ -15,3 +15,4 @@ struct AllMovies: Codable {
     let totalResult: Int?
     
 }
+
