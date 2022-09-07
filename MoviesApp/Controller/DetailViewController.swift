@@ -143,7 +143,6 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     func amountInMs(rev: Int, bud: Int) -> (Int, Int) {
         return (rev/CalculationConstants.million, bud/CalculationConstants.million)
     }
-    
 }
 
 

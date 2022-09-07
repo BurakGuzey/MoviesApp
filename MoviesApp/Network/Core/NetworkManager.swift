@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct MoviesManager {
+struct NetworkManager {
     
     private let session = URLSession.shared
     
-    func performRequest<T: Codable>(request: URLRequest, completion: @escaping (Result<T, NetworkError>) -> Void) {
-        let task = session.dataTask(with: request) { (data, response, error) in
+    func performRequest<T: Codable>(request: Requestable, completion: @escaping (Result<T, NetworkError>) -> Void) {
+        let task = session.dataTask(with: request.toURLRequest()) { (data, response, error) in
             DispatchQueue.main.async {
                 if let safeData = data {
                     do {

@@ -54,5 +54,12 @@ extension MovieListController: UITableViewDataSource {
         }
         movieListTableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position > (movieListTableView.contentSize.height-100-scrollView.frame.size.height) {
+            print("fetch data")
+        }
+    }
 }
 

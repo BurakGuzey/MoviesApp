@@ -15,4 +15,5 @@ struct ServiceConstants {
     static let apiKey = "16e807f61c3e7c6382feff585c3859ad"
     static let allMoviesPath = "/3/movie/popular"
     static let baseImageURL = "https://image.tmdb.org/t/p/w500"
+    
 }

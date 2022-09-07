@@ -86,6 +86,7 @@
 		A101A0AF28B00A2C00D4679E /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				A1AB389128C101F800B45D8A /* Core */,
 				A13DBBC928B0FB2400C857F0 /* Service */,
 				A17E274E28763F1A00BA58C5 /* Model */,
 			);
@@ -115,7 +116,6 @@
 				A11ECD80286F82E5006E2BD7 /* SceneDelegate.swift */,
 				A1AB389428C4E5C400B45D8A /* Constants */,
 				A101A0AF28B00A2C00D4679E /* Network */,
-				A1AB389128C101F800B45D8A /* Core */,
 				A13629512873A3200089F3BB /* View */,
 				A1362929287097970089F3BB /* Controller */,
 				A11ECD87286F82E6006E2BD7 /* Assets.xcassets */,

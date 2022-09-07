@@ -15,7 +15,11 @@ class CastDetailViewController: UIViewController {
     @IBOutlet weak var biographyLabel: UILabel!
     @IBOutlet weak var placeOfBirth: UILabel!
     @IBOutlet weak var birhtdayLabel: UILabel!
+    @IBOutlet weak var biographyHeadlineLabel: UILabel!
     @IBOutlet weak var castImageView: UIImageView!
+    @IBOutlet weak var placeOfBirthHeadline: UILabel!
+    @IBOutlet weak var birthDeathDayHeadline: UILabel!
+    @IBOutlet weak var deathDayLabel: UILabel!
     
     var castID: Int?
     
@@ -47,8 +51,17 @@ class CastDetailViewController: UIViewController {
         biographyLabel.text = castDetail?.biography
         placeOfBirth.text = castDetail?.placeOfBirth
         birhtdayLabel.text = castDetail?.birthday
-        let urlString = URL(string: "https://image.tmdb.org/t/p/w500/jpurJ9jAcLCYjgHHfYF32m3zJYm.jpg")
-        castImageView.kf.setImage(with: urlString)
-        
+        if let deathday = castDetail?.deathday {
+            deathDayLabel.text = "- \(deathday)"
+        } else {
+            birthDeathDayHeadline.text = "Birthday"
+            deathDayLabel.text = ""
+        }
+        if let profilePath = castDetail?.profilePath {
+            let urlString = URL(string: ServiceConstants.baseImageURL + profilePath)
+            castImageView.kf.setImage(with: urlString)
+        } else {
+            castImageView.image = #imageLiteral(resourceName: "NO PHOTO")
+        }
     }
 }
