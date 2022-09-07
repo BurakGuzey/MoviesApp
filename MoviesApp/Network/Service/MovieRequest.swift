@@ -15,20 +15,20 @@ enum MovieRequest {
 }
 
 extension MovieRequest: Requestable {
-
+    
     var path: String {
         switch self {
         case .allMovies:
             return ServiceConstants.allMoviesPath
         case .movieDetail(let id):
-            return "movie/\(id)"
+            return "/3/movie/\(id)"
         }
     }
     
     var method: HTTPMethod {
         switch self {
         case .allMovies,
-             .movieDetail:
+                .movieDetail:
             return .get
         }
     }
@@ -36,19 +36,8 @@ extension MovieRequest: Requestable {
     var parameters: Data? {
         switch self {
         case .allMovies,
-             .movieDetail:
+                .movieDetail:
             return nil
         }
     }
-
-//    var queryItems: [URLQueryItem]? {
-//        switch self {
-//        case .allMovies:
-//            return
-//        case .movieDetail(id: let id):
-//            return
-//        }
-//    }
-        
-    
 }

@@ -9,12 +9,12 @@ import Foundation
 
 protocol Requestable {
     
-    var baseURL: URL { get }
+    var baseURL: String { get }
     var path: String { get }
     var method: HTTPMethod { get }
     var parameters: Data? { get }
     var queryItems: [URLQueryItem] { get }
-
+    
     
     func toURLRequest() -> URLRequest
     
@@ -22,24 +22,26 @@ protocol Requestable {
 
 extension Requestable {
     
-    var baseURL: URL {
-        return URL(string: ServiceConstants.baseURL)!
+    var baseURL: String {
+        return ServiceConstants.baseURL
     }
-        
+    
     var queryItems: [URLQueryItem] {
-        return  [URLQueryItem(name: "api_key", value: ServiceConstants.apiKey)]
+        return  [URLQueryItem(name: ServiceConstants.apiKeyName, value: ServiceConstants.apiKey)]
     }
-        
+    
     func toURLRequest() -> URLRequest {
         
+        let request: URLRequest
         var components = URLComponents()
-        components.scheme = "https"
+        components.scheme = ServiceConstants.baseScheme
         components.host = ServiceConstants.baseURL
+        components.path = path
         components.queryItems = queryItems
-        
-        let request = URLRequest(url: URL(string: components.string!)!)
+       
+        let urlRequest = components.url
+        request = URLRequest(url: urlRequest!)
         
         return request
     }
-    
 }

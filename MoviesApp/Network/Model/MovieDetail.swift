@@ -24,5 +24,7 @@ struct MovieDetail: Codable {
 }
 
 struct Genres: Codable {
+    
     let name: String?
+
 }

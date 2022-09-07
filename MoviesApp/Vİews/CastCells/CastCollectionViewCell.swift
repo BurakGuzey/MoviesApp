@@ -18,7 +18,7 @@ class CastCollectionViewCell: UICollectionViewCell {
         castNameLabel.text = cast.name
         characterNameLabel.text = cast.character
         if let profilePath = cast.profilePath {
-            let imageString = Constants.baseImageURL + profilePath
+            let imageString = ServiceConstants.baseImageURL + profilePath
             let urlStringImage = URL(string: imageString)
             castImageView.kf.setImage(with: urlStringImage)
         } else {

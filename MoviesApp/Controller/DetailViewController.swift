@@ -24,8 +24,8 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var homepageLabel: UILabel!
     @IBOutlet weak var castCollectionView: UICollectionView!
     @IBOutlet weak var revenueLabel: UILabel!
-    
     @IBOutlet weak var homePageTextLabel: UILabel!
+    
     var movieId: Int?
     
     private var movieService = MovieService()
@@ -104,6 +104,13 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+            if let castDetailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: CastDetailViewController.self)) as? CastDetailViewController {
+                castDetailVC.castID = cast[indexPath.row].id!
+                self.navigationController?.pushViewController(castDetailVC, animated: true)
+            }
+        }
     
     func updateUI() {
         
@@ -121,7 +128,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         homePageTextLabel.text = movieDetail?.homepage
         
         if let imagePath = movieDetail?.posterPath {
-            let imageString = Constants.baseImageURL + imagePath
+            let imageString = ServiceConstants.baseImageURL + imagePath
             let urlStringImage = URL(string: imageString)
             movieImageView.kf.setImage(with: urlStringImage)
         } else {
@@ -130,11 +137,11 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     func minutesToHoursMinutes(_ mins: Int) -> (Int, Int) {
-        return (mins / Constants.minsInAnHour, (mins % Constants.minsInAnHour))
+        return (mins / CalculationConstants.minsInAnHour, (mins % CalculationConstants.minsInAnHour))
     }
     
     func amountInMs(rev: Int, bud: Int) -> (Int, Int) {
-        return (rev/Constants.million, bud/Constants.million)
+        return (rev/CalculationConstants.million, bud/CalculationConstants.million)
     }
     
 }

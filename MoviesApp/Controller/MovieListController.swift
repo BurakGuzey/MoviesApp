@@ -12,22 +12,22 @@ class MovieListController: UIViewController, UITableViewDelegate {
     private var movieService = MovieService()
     private var movie: [Movie] = []
     
-    @IBOutlet weak var listTableView: UITableView!
+    @IBOutlet weak var movieListTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        listTableView.dataSource = self
-        listTableView.delegate = self
-        listTableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ListTableViewCell")
+        movieListTableView.dataSource = self
+        movieListTableView.delegate = self
+        movieListTableView.register(UINib(nibName: "MovieListTableViewCell", bundle: nil), forCellReuseIdentifier: "MovieListTableViewCell")
         
-        listTableView.rowHeight = 94
+        movieListTableView.rowHeight = 94
         
         movieService.getAllMovies { result in
             switch result {
             case.success(let response):
                 self.movie = response.results ?? []
-                self.listTableView.reloadData()
+                self.movieListTableView.reloadData()
             case.failure(let error):
                 print(error)
             }
@@ -41,7 +41,7 @@ extension MovieListController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath) as! ListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieListTableViewCell", for: indexPath) as! MovieListTableViewCell
         cell.configure(movie: movie[indexPath.row])
         return cell
     }
@@ -52,7 +52,7 @@ extension MovieListController: UITableViewDataSource {
             detailVC.movieId = movie[indexPath.row].id
             self.navigationController?.pushViewController(detailVC, animated: true)
         }
-        listTableView.deselectRow(at: indexPath, animated: true)
+        movieListTableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
