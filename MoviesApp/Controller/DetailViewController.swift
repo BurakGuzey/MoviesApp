@@ -29,6 +29,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     var movieId: Int?
     
     private var movieService = MovieService()
+    private var thirdPartyControllers = ThirdPartyControllers()
     private var movieDetail: MovieDetail? {
         didSet {
             updateUI()
@@ -130,7 +131,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         if let imagePath = movieDetail?.posterPath {
             let imageString = ServiceConstants.baseImageURL + imagePath
             let urlStringImage = URL(string: imageString)
-            movieImageView.kf.setImage(with: urlStringImage)
+            thirdPartyControllers.setImageKingfisher(imageView: movieImageView, sourceURL: urlStringImage)
         } else {
             movieImageView.image = #imageLiteral(resourceName: "NO PHOTO")
         }

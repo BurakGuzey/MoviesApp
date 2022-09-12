@@ -13,6 +13,8 @@ class CastCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var characterNameLabel: UILabel!
     @IBOutlet weak var castNameLabel: UILabel!
     
+    private var thirdPartyController = ThirdPartyControllers()
+    
     func configure(cast: Cast) {
         
         castNameLabel.text = cast.name
@@ -20,7 +22,7 @@ class CastCollectionViewCell: UICollectionViewCell {
         if let profilePath = cast.profilePath {
             let imageString = ServiceConstants.baseImageURL + profilePath
             let urlStringImage = URL(string: imageString)
-            castImageView.kf.setImage(with: urlStringImage)
+            thirdPartyController.setImageKingfisher(imageView: castImageView, sourceURL: urlStringImage)
         } else {
             castImageView.image = #imageLiteral(resourceName: "NO PHOTO")
         }

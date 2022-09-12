@@ -22,6 +22,6 @@ class GenresCollectionViewCell: UICollectionViewCell {
     func configure(genres: Genres) {
         
         genresLabel.text = genres.name
-
+        
     }
 }

@@ -35,5 +35,12 @@ struct MovieService {
         
     }
     
+    func loadMoreMovies(completion: @escaping (Result<AllMovies, NetworkError>) -> Void) {
+        
+        
+        moviesManager.performRequest(request: MovieRequest.allMovies, completion: completion)
+        
+    }
+    
     
 }

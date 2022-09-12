@@ -24,11 +24,13 @@ class CastDetailViewController: UIViewController {
     var castID: Int?
     
     private var movieService = MovieService()
+    private var thirdpartyController = ThirdPartyControllers()
     private var castDetail: CastDetail? {
         didSet {
             updateCastList()
         }
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +61,7 @@ class CastDetailViewController: UIViewController {
         }
         if let profilePath = castDetail?.profilePath {
             let urlString = URL(string: ServiceConstants.baseImageURL + profilePath)
-            castImageView.kf.setImage(with: urlString)
+            thirdpartyController.setImageKingfisher(imageView: castImageView, sourceURL: urlString)
         } else {
             castImageView.image = #imageLiteral(resourceName: "NO PHOTO")
         }
