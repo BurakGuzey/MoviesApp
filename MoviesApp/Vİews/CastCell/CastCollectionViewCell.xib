@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CastCollectionViewCell" id="gTV-IL-0wX" customClass="CastCollectionViewCell" customModule="MoviesApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="268" height="353"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="268" height="353"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14u-2P-ZJ8" userLabel="ContentView">
+                        <rect key="frame" x="0.0" y="0.0" width="268" height="353"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UUd-Mm-nZr">
+                                <rect key="frame" x="10" y="10" width="248" height="273"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="y6V-Wd-7az">
+                                <rect key="frame" x="10" y="293" width="248" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CastName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xAC-9G-zhb">
+                                        <rect key="frame" x="0.0" y="0.0" width="248" height="23"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CharacterName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vn-lE-ed0">
+                                        <rect key="frame" x="0.0" y="27" width="248" height="23"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="y6V-Wd-7az" firstAttribute="leading" secondItem="14u-2P-ZJ8" secondAttribute="leading" constant="10" id="4yD-TS-qwZ"/>
+                            <constraint firstAttribute="trailing" secondItem="y6V-Wd-7az" secondAttribute="trailing" constant="10" id="eCi-1E-Qct"/>
+                            <constraint firstItem="UUd-Mm-nZr" firstAttribute="leading" secondItem="14u-2P-ZJ8" secondAttribute="leading" constant="10" id="fvh-5e-RMW"/>
+                            <constraint firstAttribute="trailing" secondItem="UUd-Mm-nZr" secondAttribute="trailing" constant="10" id="q7L-fV-tBx"/>
+                            <constraint firstAttribute="bottom" secondItem="y6V-Wd-7az" secondAttribute="bottom" constant="10" id="qPY-Dl-JgE"/>
+                            <constraint firstItem="UUd-Mm-nZr" firstAttribute="top" secondItem="14u-2P-ZJ8" secondAttribute="top" constant="10" id="thi-8X-BGw"/>
+                            <constraint firstItem="y6V-Wd-7az" firstAttribute="top" secondItem="UUd-Mm-nZr" secondAttribute="bottom" constant="10" id="vAL-TN-1aT"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="14u-2P-ZJ8" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="IeT-o6-vpe" customClass="CastCollectionViewCell" customModule="MoviesApp" customModuleProvider="target"/>
+                <constraint firstAttribute="bottom" secondItem="14u-2P-ZJ8" secondAttribute="bottom" id="arX-mw-wpr" customClass="CastCollectionViewCell" customModule="MoviesApp" customModuleProvider="target"/>
+                <constraint firstAttribute="trailing" secondItem="14u-2P-ZJ8" secondAttribute="trailing" id="byB-lw-VxW" customClass="CastCollectionViewCell" customModule="MoviesApp" customModuleProvider="target"/>
+                <constraint firstItem="14u-2P-ZJ8" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="iIo-cK-0Qd" customClass="CastCollectionViewCell" customModule="MoviesApp" customModuleProvider="target"/>
+            </constraints>
+            <size key="customSize" width="268" height="353"/>
+            <connections>
+                <outlet property="castImageView" destination="UUd-Mm-nZr" id="fL6-eS-TtH"/>
+                <outlet property="castNameLabel" destination="xAC-9G-zhb" id="IpR-no-gLX"/>
+                <outlet property="characterNameLabel" destination="2vn-lE-ed0" id="yiJ-ZM-WWB"/>
+            </connections>
+            <point key="canvasLocation" x="13.043478260869566" y="154.35267857142856"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
