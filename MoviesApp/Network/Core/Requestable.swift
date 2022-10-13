@@ -23,25 +23,30 @@ protocol Requestable {
 extension Requestable {
     
     var baseURL: String {
-        return ServiceConstants.baseURL
+        return ServiceConstants.BaseURLs.baseServiceURL
     }
     
     var queryItems: [URLQueryItem] {
-        return  [URLQueryItem(name: ServiceConstants.apiKeyName, value: ServiceConstants.apiKey)]
+        return  [
+            URLQueryItem(name: ServiceConstants.Paths.apiKeyName, value: ServiceConstants.Paths.apiKey),
+            URLQueryItem(name: ServiceConstants.Paths.page, value: ServiceConstants.Paths.defaultPage),
+            URLQueryItem(name: ServiceConstants.Paths.lang, value: ServiceLanguageManager.currentLanguage())
+        ]
     }
     
     func toURLRequest() -> URLRequest {
         
         let request: URLRequest
         var components = URLComponents()
-        components.scheme = ServiceConstants.baseScheme
-        components.host = ServiceConstants.baseURL
+        components.scheme = ServiceConstants.BaseURLs.baseScheme
+        components.host = ServiceConstants.BaseURLs.baseServiceURL
         components.path = path
         components.queryItems = queryItems
-       
+        
         let urlRequest = components.url
         request = URLRequest(url: urlRequest!)
         
         return request
+        
     }
 }

@@ -10,23 +10,28 @@ import UIKit
 class MovieListController: UIViewController, UITableViewDelegate {
     
     private var movieService = MovieService()
-    private var movie: [Movie] = []
+    private var movies: [Movie] = []
+    
+    var pageString = ServiceConstants.Paths.defaultPage
+    var pageNum = 1
     
     @IBOutlet weak var movieListTableView: UITableView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         movieListTableView.dataSource = self
         movieListTableView.delegate = self
-        movieListTableView.register(UINib(nibName: "MovieListTableViewCell", bundle: nil), forCellReuseIdentifier: "MovieListTableViewCell")
+        
+        movieListTableView.register(UINib(nibName: String(describing: MovieListTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: MovieListTableViewCell.self))
         
         movieListTableView.rowHeight = 94
         
-        movieService.getAllMovies { result in
+        movieService.getAllMovies(page: pageString) { result in
             switch result {
             case.success(let response):
-                self.movie = response.results ?? []
+                self.movies = response.results ?? []
                 self.movieListTableView.reloadData()
             case.failure(let error):
                 print(error)
@@ -37,38 +42,42 @@ class MovieListController: UIViewController, UITableViewDelegate {
 
 extension MovieListController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movie.count
+        return movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieListTableViewCell", for: indexPath) as! MovieListTableViewCell
-        cell.configure(movie: movie[indexPath.row])
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MovieListTableViewCell.self), for: indexPath) as! MovieListTableViewCell
+        cell.configure(movie: movies[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController {
-            detailVC.movieId = movie[indexPath.row].id
+            detailVC.movieId = movies[indexPath.row].id
             self.navigationController?.pushViewController(detailVC, animated: true)
         }
         movieListTableView.deselectRow(at: indexPath, animated: true)
     }
     
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let position = scrollView.contentOffset.y
-//        if position > (movieListTableView.contentSize.height-100-scrollView.frame.size.height) {
-            // fetch more data
-//            movieService.getAllMovies { result in
-//                switch result {
-//                case.success(let response):
-//                    self.movie = response.results ?? []
-//                    self.movieListTableView.reloadData()
-//                case.failure(let error):
-//                    print(error)
-//                }
-//            }
-//        }
-//    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if indexPath.row == movies.count - 1 {
+            loadMoreData()
+        }
+    }
+    
+    func loadMoreData() {
+        pageNum = pageNum + 1
+        pageString = String(pageNum)
+        movieService.getAllMovies(page: pageString) { [self] result in
+            switch result {
+            case.success(let response):
+                self.movies = (movies + (response.results ?? [])) 
+                self.movieListTableView.reloadData()
+            case.failure(let error):
+                print(error)
+            }
+        }
+    }
 }
-

@@ -9,38 +9,42 @@ import Foundation
 
 struct MovieService {
     
-    private let moviesManager = NetworkManager()
+    private let networkManager = NetworkManager()
     
-    func getAllMovies(completion: @escaping (Result<AllMovies, NetworkError>) -> Void) {
+    func getAllMovies(page: String, completion: @escaping (Result<AllMovies, NetworkError>) -> Void) {
         
-        moviesManager.performRequest(request: MovieRequest.allMovies, completion: completion)
+        networkManager.performRequest(request: MovieRequest.allMovies(pageString: page), completion: completion)
         
     }
     
     func getMovieDetail(id: Int, completion: @escaping (Result<MovieDetail, NetworkError>) -> Void) {
         
-        moviesManager.performRequest(request: MovieRequest.movieDetail(id: id), completion: completion)
+        networkManager.performRequest(request: MovieRequest.movieDetail(id: id), completion: completion)
         
     }
     
-    func getAllCast(id: Int, completion: @escaping (Result<AllCast, NetworkError>) -> Void) {
+    func getAllCast(id: Int, completion: @escaping (Result<AllCasts, NetworkError>) -> Void) {
         
-        moviesManager.performRequest(request: CastRequest.allCast(id: id), completion: completion)
+        networkManager.performRequest(request: CastRequest.allCast(id: id), completion: completion)
         
     }
     
     func getCastDetail(id: Int, completion: @escaping (Result<CastDetail, NetworkError>) -> Void) {
         
-        moviesManager.performRequest(request: CastRequest.castDetail(id: id), completion: completion)
+        networkManager.performRequest(request: CastRequest.castDetail(id: id), completion: completion)
         
     }
     
-    func loadMoreMovies(completion: @escaping (Result<AllMovies, NetworkError>) -> Void) {
+    func getSearchedMovies(text: String, completion: @escaping (Result<SearchedMovies, NetworkError>) -> Void) {
         
-        
-        moviesManager.performRequest(request: MovieRequest.allMovies, completion: completion)
+        networkManager.performRequest(request: SearchRequest.searchMovie(text: text), completion: completion)
         
     }
     
+    func getRecommendations(id: Int, page: String, completion: @escaping (Result<AllRecommendations, NetworkError>) -> Void) {
+        
+        networkManager.performRequest(request: RecommendationRequest.allrecommendations(id: id, pageString: page), completion: completion)
+        
+    }
     
 }

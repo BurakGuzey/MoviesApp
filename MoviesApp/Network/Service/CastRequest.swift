@@ -28,7 +28,7 @@ extension CastRequest: Requestable {
     var method: HTTPMethod {
         switch self {
         case .allCast,
-             .castDetail:
+                .castDetail:
             return .get
         }
     }
@@ -36,7 +36,7 @@ extension CastRequest: Requestable {
     var parameters: Data? {
         switch self {
         case .allCast,
-             .castDetail:
+                .castDetail:
             return nil
         }
     }

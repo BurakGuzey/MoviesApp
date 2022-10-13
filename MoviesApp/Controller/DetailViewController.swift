@@ -25,21 +25,33 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var castCollectionView: UICollectionView!
     @IBOutlet weak var revenueLabel: UILabel!
     @IBOutlet weak var homePageTextLabel: UILabel!
+    @IBOutlet weak var recommendationsCollectionView: UICollectionView!
+    @IBOutlet weak var recommendationsLabel: UILabel!
     
     var movieId: Int?
     
     private var movieService = MovieService()
-    private var thirdPartyControllers = ThirdPartyControllers()
     private var movieDetail: MovieDetail? {
         didSet {
             updateUI()
         }
     }
-    private var cast: [Cast] = []
+    private var casts: [Cast] = []
     private var genres: [Genres] = []
+    private var recommendations: [Recommendation] = []
+    
+    var pageString = ServiceConstants.Paths.defaultPage
+    var pageNum = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        overviewLabel.text = "Overview".localized()
+        budgetLabel.text = "Budget".localized()
+        revenueLabel.text = "Revenue".localized()
+        homepageLabel.text = "Home Page".localized()
+        recommendationsLabel.text = "Recommendations".localized()
+        
         
         
         if let id = movieId {
@@ -53,18 +65,27 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
                     print(error)
                 }
             }
+            movieService.getRecommendations(id: id, page: pageString) { result in
+                switch result {
+                case .success(let response):
+                    self.recommendations = response.results ?? []
+                    self.recommendationsCollectionView.reloadData()
+                case .failure(let error):
+                    print(error)
+                }
+            }
             movieService.getAllCast(id: id) { result in
                 switch result {
                 case .success(let response):
-                    self.cast = response.cast
+                    self.casts = response.cast
                     self.castCollectionView.reloadData()
                 case .failure(let error):
                     print(error)
                 }
             }
         } else {
-            let alertVC = UIAlertController(title: "Error", message: "Not Found", preferredStyle: .alert)
-            let okButton = UIAlertAction(title: "Ok", style: .default) { action in
+            let alertVC = UIAlertController(title: "Error".localized(), message: "Not Found".localized(), preferredStyle: .alert)
+            let okButton = UIAlertAction(title: "ok".localized(), style: .default) { action in
                 self.navigationController?.popViewController(animated: true)
             }
             alertVC.addAction(okButton)
@@ -75,43 +96,57 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         castCollectionView.delegate = self
         
         genresCollectionView.dataSource = self
-        genresCollectionView.delegate = self
         
+        recommendationsCollectionView.dataSource = self
+        recommendationsCollectionView.delegate = self
         
-        castCollectionView.register(UINib(nibName: "CastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CastCollectionViewCell")
-        genresCollectionView.register(UINib(nibName: "GenresCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "GenresCollectionViewCell")
+        castCollectionView.register(UINib(nibName: String(describing: CastCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: CastCollectionViewCell.self))
+        genresCollectionView.register(UINib(nibName: String(describing: GenresCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: GenresCollectionViewCell.self))
+        recommendationsCollectionView.register(UINib(nibName: String(describing: RecommendationsCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: RecommendationsCollectionViewCell.self))
         
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == castCollectionView {
-            return cast.count
-        }
-        else {
+            return casts.count
+        } else if collectionView == genresCollectionView {
             return genres.count
+        } else {
+            return recommendations.count
         }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == castCollectionView {
-            let castCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CastCollectionViewCell", for: indexPath) as! CastCollectionViewCell
-            castCell.configure(cast: cast[indexPath.row])
+            let castCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CastCollectionViewCell.self), for: indexPath) as! CastCollectionViewCell
+            castCell.configure(cast: casts[indexPath.row])
             return castCell
-        }
-        else {
-            let genresCell = collectionView.dequeueReusableCell(withReuseIdentifier: "GenresCollectionViewCell", for: indexPath) as! GenresCollectionViewCell
+        } else if collectionView == genresCollectionView {
+            let genresCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: GenresCollectionViewCell.self), for: indexPath) as! GenresCollectionViewCell
             genresCell.configure(genres: genres[indexPath.row])
             return genresCell
+        } else {
+            let recommendationsCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: RecommendationsCollectionViewCell.self), for: indexPath) as! RecommendationsCollectionViewCell
+            recommendationsCell.configure(recommendations: recommendations[indexPath.row])
+            return recommendationsCell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        
+        if collectionView == castCollectionView {
             if let castDetailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: CastDetailViewController.self)) as? CastDetailViewController {
-                castDetailVC.castID = cast[indexPath.row].id!
+                castDetailVC.castID = casts[indexPath.row].id!
                 self.navigationController?.pushViewController(castDetailVC, animated: true)
             }
+        } else {
+            if let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController {
+                detailVC.movieId = recommendations[indexPath.row].id
+                self.navigationController?.pushViewController(detailVC, animated: true)
+            }
         }
+    }
     
     func updateUI() {
         
@@ -129,9 +164,9 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         homePageTextLabel.text = movieDetail?.homepage
         
         if let imagePath = movieDetail?.posterPath {
-            let imageString = ServiceConstants.baseImageURL + imagePath
+            let imageString = ServiceConstants.BaseURLs.baseImageURL + imagePath
             let urlStringImage = URL(string: imageString)
-            thirdPartyControllers.setImageKingfisher(imageView: movieImageView, sourceURL: urlStringImage)
+            movieImageView.setImage(sourceURL: urlStringImage)
         } else {
             movieImageView.image = #imageLiteral(resourceName: "NO PHOTO")
         }
@@ -144,7 +179,16 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     func amountInMs(rev: Int, bud: Int) -> (Int, Int) {
         return (rev/CalculationConstants.million, bud/CalculationConstants.million)
     }
+    
+    
+    struct CalculationConstants {
+        
+        static let minsInAnHour = 60
+        static let million = 1000000
+        
+    }
 }
+
 
 
 

@@ -24,7 +24,6 @@ class CastDetailViewController: UIViewController {
     var castID: Int?
     
     private var movieService = MovieService()
-    private var thirdpartyController = ThirdPartyControllers()
     private var castDetail: CastDetail? {
         didSet {
             updateCastList()
@@ -34,6 +33,11 @@ class CastDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        biographyHeadlineLabel.text = "Biography".localized()
+        placeOfBirthHeadline.text = "Place of Birth".localized()
+        birthDeathDayHeadline.text = "Birthday - Deathday".localized()
+        
         
         if let id = castID {
             movieService.getCastDetail(id: id) { result in
@@ -56,12 +60,12 @@ class CastDetailViewController: UIViewController {
         if let deathday = castDetail?.deathday {
             deathDayLabel.text = "- \(deathday)"
         } else {
-            birthDeathDayHeadline.text = "Birthday"
+            birthDeathDayHeadline.text = "Birthday".localized()
             deathDayLabel.text = ""
         }
         if let profilePath = castDetail?.profilePath {
-            let urlString = URL(string: ServiceConstants.baseImageURL + profilePath)
-            thirdpartyController.setImageKingfisher(imageView: castImageView, sourceURL: urlString)
+            let urlString = URL(string: ServiceConstants.BaseURLs.baseImageURL + profilePath)
+            castImageView.setImage(sourceURL: urlString)
         } else {
             castImageView.image = #imageLiteral(resourceName: "NO PHOTO")
         }
