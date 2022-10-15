@@ -15,6 +15,11 @@ class SearchListViewController: UIViewController, UITableViewDelegate {
     private var movieService = MovieService()
     private var movies: [Movie] = []
     
+    private var pageNum = 1 
+    private var pageString = ServiceConstants.Paths.defaultPage
+    
+    var textOnSearchBar = String()
+    
     let EmptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 400, height: 21))
     
     override func viewDidLoad() {
@@ -22,6 +27,7 @@ class SearchListViewController: UIViewController, UITableViewDelegate {
         
         searchListTableView.delegate = self
         searchListTableView.dataSource = self
+        
         searchListTableView.register(UINib(nibName: String(describing: SearchListTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: SearchListTableViewCell.self))
         
         searchListTableView.rowHeight = 94
@@ -43,7 +49,7 @@ extension SearchListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchListTableViewCell", for: indexPath) as! SearchListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchListTableViewCell.self), for: indexPath) as! SearchListTableViewCell
         cell.configure(movie: movies[indexPath.row])
         return cell
         
@@ -57,6 +63,16 @@ extension SearchListViewController: UITableViewDataSource {
         }
         searchListTableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+       
+        if indexPath.row == movies.count - 1 {
+            loadMoreSearchedMovies()
+            searchListTableView.reloadData()
+            print("I am here")
+        }
+    }
+    
 }
 
 extension SearchListViewController: UISearchBarDelegate {
@@ -66,8 +82,12 @@ extension SearchListViewController: UISearchBarDelegate {
         if let text = searchBar.text {
             
             EmptyLabel.isHidden = true
+            searchListTableView.isHidden = false
+            
+            textOnSearchBar = text
             
             searchedMovies(text: text)
+            searchListTableView.reloadData()
             
         }
     }
@@ -86,6 +106,20 @@ extension SearchListViewController: UISearchBarDelegate {
             switch result {
             case.success(let response):
                 self.movies = response.results ?? []
+                self.searchListTableView.reloadData()
+            case.failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func loadMoreSearchedMovies() {
+        pageNum = pageNum + 1
+        pageString = String(pageNum)
+        movieService.getSearchedMovies(text: textOnSearchBar) { result in
+            switch result {
+            case.success(let response):
+                self.movies = (self.movies + (response.results ?? []))
                 self.searchListTableView.reloadData()
             case.failure(let error):
                 print(error)

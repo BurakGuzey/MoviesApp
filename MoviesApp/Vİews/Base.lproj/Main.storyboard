@@ -647,7 +647,7 @@
         <!--Favorites-->
         <scene sceneID="YHs-U8-0zy">
             <objects>
-                <viewController id="rvB-90-NSR" sceneMemberID="viewController">
+                <viewController id="rvB-90-NSR" customClass="FavoritesListViewController" customModule="MoviesApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="19O-7E-hmr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -667,6 +667,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Favorites" id="5Ck-PI-nJR"/>
+                    <connections>
+                        <outlet property="favoritesTableView" destination="Tk3-se-EeK" id="z7l-3K-bt3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Rn-Et-wuk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

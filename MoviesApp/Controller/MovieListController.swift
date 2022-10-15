@@ -16,7 +16,6 @@ class MovieListController: UIViewController, UITableViewDelegate {
     var pageNum = 1
     
     @IBOutlet weak var movieListTableView: UITableView!
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,11 +62,11 @@ extension MovieListController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         if indexPath.row == movies.count - 1 {
-            loadMoreData()
+            loadMoreMovies()
         }
     }
     
-    func loadMoreData() {
+    func loadMoreMovies() {
         pageNum = pageNum + 1
         pageString = String(pageNum)
         movieService.getAllMovies(page: pageString) { [self] result in
