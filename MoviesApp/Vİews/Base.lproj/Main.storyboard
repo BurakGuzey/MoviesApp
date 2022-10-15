@@ -705,7 +705,7 @@
                                 <rect key="frame" x="0.0" y="132" width="375" height="580"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
-                            <searchBar contentMode="redraw" placeholder="Search" id="Kdk-C8-h7k">
+                            <searchBar contentMode="redraw" id="Kdk-C8-h7k">
                                 <rect key="frame" x="-9" y="88" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -725,6 +725,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="7Wi-O9-3zq" userLabel="Search"/>
                     <connections>
+                        <outlet property="searchBar" destination="Kdk-C8-h7k" id="FTL-C1-WwW"/>
                         <outlet property="searchListTableView" destination="Zzd-IO-ckI" id="xfN-GN-uUA"/>
                     </connections>
                 </viewController>

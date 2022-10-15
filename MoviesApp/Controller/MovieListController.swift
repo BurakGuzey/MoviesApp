@@ -47,6 +47,7 @@ extension MovieListController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MovieListTableViewCell.self), for: indexPath) as! MovieListTableViewCell
         cell.configure(movie: movies[indexPath.row])
+        cell.movieListController = self
         return cell
     }
     
@@ -69,14 +70,19 @@ extension MovieListController: UITableViewDataSource {
     func loadMoreMovies() {
         pageNum = pageNum + 1
         pageString = String(pageNum)
-        movieService.getAllMovies(page: pageString) { [self] result in
+        movieService.getAllMovies(page: pageString) { result in
             switch result {
             case.success(let response):
-                self.movies = (movies + (response.results ?? [])) 
+                self.movies = (self.movies + (response.results ?? []))
                 self.movieListTableView.reloadData()
             case.failure(let error):
                 print(error)
             }
         }
+    }
+    
+    func someMethodIWantToCall(cell: MovieListTableViewCell) {
+        let indexPathTapped = movieListTableView.indexPath(for: cell)?.row
+        var favoritedMovieId = movies[indexPathTapped!].id
     }
 }

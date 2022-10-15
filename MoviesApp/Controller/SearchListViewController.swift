@@ -10,6 +10,7 @@ import UIKit
 
 class SearchListViewController: UIViewController, UITableViewDelegate {
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchListTableView: UITableView!
     
     private var movieService = MovieService()
@@ -34,10 +35,11 @@ class SearchListViewController: UIViewController, UITableViewDelegate {
         
         EmptyLabel.center = CGPoint(x: 200, y: 450)
         EmptyLabel.textAlignment = .center
-        EmptyLabel.text = "Search to View The Movies"
+        EmptyLabel.text = "Search to View The Movies".localized()
         
         self.view.addSubview(EmptyLabel)
         
+        searchBar.placeholder = "Search".localized()
     }
 }
 
@@ -69,10 +71,8 @@ extension SearchListViewController: UITableViewDataSource {
         if indexPath.row == movies.count - 1 {
             loadMoreSearchedMovies()
             searchListTableView.reloadData()
-            print("I am here")
         }
     }
-    
 }
 
 extension SearchListViewController: UISearchBarDelegate {

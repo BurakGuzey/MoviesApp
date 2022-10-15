@@ -10,13 +10,15 @@ import Kingfisher
 
 class MovieListTableViewCell: UITableViewCell {
     
+    var movieListController = MovieListController()
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
     
     @IBAction func favButton(_ sender: UIButton) {
-        print("added to fav list")
+        handleMarkAsFavorite()
     }
 
     
@@ -33,5 +35,9 @@ class MovieListTableViewCell: UITableViewCell {
         } else {
             movieImage.image = #imageLiteral(resourceName: "NO PHOTO")
         }
+    }
+    
+    func handleMarkAsFavorite() {
+        movieListController.someMethodIWantToCall(cell: self)
     }
 }
