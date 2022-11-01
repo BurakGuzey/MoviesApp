@@ -11,6 +11,7 @@ import UIKit
 class DetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     
+    @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var genresCollectionView: UICollectionView!
     @IBOutlet weak var revenueValueLabel: UILabel!
     @IBOutlet weak var budgetValueLabel: UILabel!
@@ -29,13 +30,23 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var recommendationsLabel: UILabel!
     
     var movieId: Int?
+    var isFavorited: Bool?
+    
+    @IBAction func favoriteButton(_ sender: UIButton) {
+        if let id = movieId {
+            FavoriteMovieManager.defaultManager.editFavoriteList(id: id)
+            FavoriteMovieManager.defaultManager.saveData()
+        }
+        favoriteButton.tintColor = (favoriteButton.tintColor != .blue) ? .blue : .darkGray
+    }
     
     private var movieService = MovieService()
     private var movieDetail: MovieDetail? {
         didSet {
-            updateUI()
+            updateUI(isFavorited: isFavorited!)
         }
     }
+    
     private var casts: [Cast] = []
     private var genres: [Genres] = []
     private var recommendations: [Recommendation] = []
@@ -55,6 +66,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         
         if let id = movieId {
+            
             movieService.getMovieDetail(id: id) { result in
                 switch result {
                 case .success(let movie):
@@ -83,6 +95,9 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
                     print(error)
                 }
             }
+            
+            isFavorited = FavoriteMovieManager.defaultManager.checkMovieIsFavorited(id: id)
+            
         } else {
             let alertVC = UIAlertController(title: "Error".localized(), message: "Not Found".localized(), preferredStyle: .alert)
             let okButton = UIAlertAction(title: "ok".localized(), style: .default) { action in
@@ -91,6 +106,12 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
             alertVC.addAction(okButton)
             self.present(alertVC, animated: true)
         }
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.estimatedItemSize = CGSize(width: 200, height: 400)
+        layout.scrollDirection = .horizontal
+        
+        recommendationsCollectionView.collectionViewLayout = layout
         
         castCollectionView.dataSource = self
         castCollectionView.delegate = self
@@ -148,7 +169,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
     }
     
-    func updateUI() {
+    func updateUI(isFavorited: Bool) {
         
         let (h, m) = minutesToHoursMinutes((movieDetail?.runtime)!)
         let (rev, bud) = amountInMs(rev: (movieDetail?.revenue)!, bud: (movieDetail?.budget)!)
@@ -169,6 +190,22 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
             movieImageView.setImage(sourceURL: urlStringImage)
         } else {
             movieImageView.image = #imageLiteral(resourceName: "NO PHOTO")
+        }
+
+        favoriteButton.tintColor = isFavorited == false ? .darkGray : .blue
+
+    }
+    
+    func loadMoreMovies(id: Int) {
+        pageNum = pageNum + 1
+        movieService.getRecommendations(id: id, page: pageString) { result in
+            switch result {
+            case.success(let response):
+                self.recommendations = (self.recommendations + (response.results ?? [] ))
+                self.recommendationsCollectionView.reloadData()
+            case.failure(let error):
+                print(error)
+            }
         }
     }
     

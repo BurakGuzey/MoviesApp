@@ -34,20 +34,21 @@ class MovieListController: UIViewController, UITableViewDelegate {
                 self.movieListTableView.reloadData()
             case.failure(let error):
                 print(error)
+                }
             }
         }
     }
-}
 
-extension MovieListController: UITableViewDataSource {
+extension MovieListController: UITableViewDataSource, FavoriteMovieDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MovieListTableViewCell.self), for: indexPath) as! MovieListTableViewCell
-        cell.configure(movie: movies[indexPath.row])
-        cell.movieListController = self
+        cell.configure(movie: movies[indexPath.row], isFavorited: FavoriteMovieManager.defaultManager.checkMovieIsFavorited(id: movies[indexPath.row].id!))
+        cell.favoriteDelegate = self
         return cell
     }
     
@@ -56,15 +57,20 @@ extension MovieListController: UITableViewDataSource {
         if let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController {
             detailVC.movieId = movies[indexPath.row].id
             self.navigationController?.pushViewController(detailVC, animated: true)
+            
         }
         movieListTableView.deselectRow(at: indexPath, animated: true)
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
         if indexPath.row == movies.count - 1 {
             loadMoreMovies()
         }
+    }
+    
+    func favoriteMovie(id: Int) {
+        FavoriteMovieManager.defaultManager.editFavoriteList(id: id)
+        FavoriteMovieManager.defaultManager.saveData()
     }
     
     func loadMoreMovies() {
@@ -79,10 +85,5 @@ extension MovieListController: UITableViewDataSource {
                 print(error)
             }
         }
-    }
-    
-    func someMethodIWantToCall(cell: MovieListTableViewCell) {
-        let indexPathTapped = movieListTableView.indexPath(for: cell)?.row
-        var favoritedMovieId = movies[indexPathTapped!].id
     }
 }

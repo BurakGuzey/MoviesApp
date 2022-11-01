@@ -52,8 +52,11 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iKS-It-Fv2">
                                         <rect key="frame" x="403" y="37.5" width="47" height="31"/>
+                                        <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="star" catalog="system"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="star.fill" catalog="system">
+                                            <color key="baseForegroundColor" systemColor="tintColor"/>
+                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="favButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="NDg-QB-SrU"/>
                                         </connections>
@@ -96,6 +99,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="favButton" destination="iKS-It-Fv2" id="Gn5-SD-Ewc"/>
                 <outlet property="movieImage" destination="BPZ-pT-c94" id="a9J-dd-y8Y"/>
                 <outlet property="nameLabel" destination="URC-OV-uI6" id="XUH-Sk-pcG"/>
                 <outlet property="ratingLabel" destination="YCc-gr-i6W" id="ky4-Xi-Kym"/>
@@ -106,9 +110,12 @@
     </objects>
     <resources>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
-        <image name="star" catalog="system" width="128" height="116"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
