@@ -11,6 +11,7 @@ class RecommendationsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var recommendationsNameLabel: UILabel!
     @IBOutlet weak var recommendationImageView: UIImageView!
+    
     func configure(recommendations: Recommendation) {
         
         recommendationsNameLabel.text = recommendations.title

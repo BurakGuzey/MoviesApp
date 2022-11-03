@@ -11,24 +11,24 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RecommendationsCollectionViewCell" id="gTV-IL-0wX" customClass="RecommendationsCollectionViewCell" customModule="MoviesApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="200" height="390"/>
+            <rect key="frame" x="0.0" y="0.0" width="200" height="330"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="200" height="390"/>
+                <rect key="frame" x="0.0" y="0.0" width="200" height="330"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Avw-km-wA4" userLabel="ContentView">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="390"/>
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="330"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="252" translatesAutoresizingMaskIntoConstraints="NO" id="AGY-Gs-ghY">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="350"/>
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="RX9-yn-Pfh"/>
-                                    <constraint firstAttribute="height" constant="350" id="hI7-Oo-ROz"/>
+                                    <constraint firstAttribute="height" constant="300" id="scw-f0-Qrk"/>
+                                    <constraint firstAttribute="width" constant="200" id="toE-1s-Rxh"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qYn-sA-OtK">
-                                <rect key="frame" x="10" y="350" width="180" height="25"/>
+                                <rect key="frame" x="10" y="305" width="180" height="10"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -39,7 +39,7 @@
                             <constraint firstItem="AGY-Gs-ghY" firstAttribute="leading" secondItem="Avw-km-wA4" secondAttribute="leading" id="BDs-Pb-c6C"/>
                             <constraint firstItem="qYn-sA-OtK" firstAttribute="leading" secondItem="Avw-km-wA4" secondAttribute="leading" constant="10" id="CTp-U7-1Hh"/>
                             <constraint firstAttribute="trailing" secondItem="qYn-sA-OtK" secondAttribute="trailing" constant="10" id="DZr-sX-DRs"/>
-                            <constraint firstItem="qYn-sA-OtK" firstAttribute="top" secondItem="AGY-Gs-ghY" secondAttribute="bottom" id="I8d-c8-7wv"/>
+                            <constraint firstItem="qYn-sA-OtK" firstAttribute="top" secondItem="AGY-Gs-ghY" secondAttribute="bottom" constant="5" id="I8d-c8-7wv"/>
                             <constraint firstItem="AGY-Gs-ghY" firstAttribute="top" secondItem="Avw-km-wA4" secondAttribute="top" id="dRo-xp-qyI"/>
                             <constraint firstAttribute="trailing" secondItem="AGY-Gs-ghY" secondAttribute="trailing" id="fF3-6W-8Fn"/>
                             <constraint firstAttribute="bottom" secondItem="qYn-sA-OtK" secondAttribute="bottom" constant="15" id="nm7-G5-WPD"/>
@@ -54,12 +54,12 @@
                 <constraint firstAttribute="trailing" secondItem="Avw-km-wA4" secondAttribute="trailing" id="eKd-Vh-Pkl"/>
                 <constraint firstItem="Avw-km-wA4" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="gt8-gb-ANT"/>
             </constraints>
-            <size key="customSize" width="307" height="491"/>
+            <size key="customSize" width="307" height="431"/>
             <connections>
                 <outlet property="recommendationImageView" destination="AGY-Gs-ghY" id="rzV-1B-VPc"/>
                 <outlet property="recommendationsNameLabel" destination="qYn-sA-OtK" id="Bog-ey-yId"/>
             </connections>
-            <point key="canvasLocation" x="104.34782608695653" y="154.6875"/>
+            <point key="canvasLocation" x="104.34782608695653" y="134.59821428571428"/>
         </collectionViewCell>
     </objects>
     <resources>

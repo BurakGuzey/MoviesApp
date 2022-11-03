@@ -15,6 +15,8 @@ class MovieListController: UIViewController, UITableViewDelegate {
     var pageString = ServiceConstants.Paths.defaultPage
     var pageNum = 1
     
+    var nc = NotificationCenter.default
+    
     @IBOutlet weak var movieListTableView: UITableView!
     
     override func viewDidLoad() {
@@ -26,6 +28,8 @@ class MovieListController: UIViewController, UITableViewDelegate {
         movieListTableView.register(UINib(nibName: String(describing: MovieListTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: MovieListTableViewCell.self))
         
         movieListTableView.rowHeight = 94
+        
+        nc.addObserver(self, selector:  #selector(favoriteButtonTapped), name: Notification.Name("FavoriteButtonTapped"), object: nil)
         
         movieService.getAllMovies(page: pageString) { result in
             switch result {
@@ -39,7 +43,7 @@ class MovieListController: UIViewController, UITableViewDelegate {
         }
     }
 
-extension MovieListController: UITableViewDataSource, FavoriteMovieDelegate {
+extension MovieListController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
@@ -48,7 +52,6 @@ extension MovieListController: UITableViewDataSource, FavoriteMovieDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MovieListTableViewCell.self), for: indexPath) as! MovieListTableViewCell
         cell.configure(movie: movies[indexPath.row], isFavorited: FavoriteMovieManager.defaultManager.checkMovieIsFavorited(id: movies[indexPath.row].id!))
-        cell.favoriteDelegate = self
         return cell
     }
     
@@ -68,11 +71,6 @@ extension MovieListController: UITableViewDataSource, FavoriteMovieDelegate {
         }
     }
     
-    func favoriteMovie(id: Int) {
-        FavoriteMovieManager.defaultManager.editFavoriteList(id: id)
-        FavoriteMovieManager.defaultManager.saveData()
-    }
-    
     func loadMoreMovies() {
         pageNum = pageNum + 1
         pageString = String(pageNum)
@@ -85,5 +83,10 @@ extension MovieListController: UITableViewDataSource, FavoriteMovieDelegate {
                 print(error)
             }
         }
+    }
+    
+    @objc func favoriteButtonTapped(id: Int) {
+        FavoriteMovieManager.defaultManager.readFavoriteList()
+        movieListTableView.reloadData()
     }
 }

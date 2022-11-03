@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct MovieDetail: Codable {
+struct MovieDetail: Codable, Equatable {
+    static func == (lhs: MovieDetail, rhs: MovieDetail) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
     
     let id: Int?
     let title: String?

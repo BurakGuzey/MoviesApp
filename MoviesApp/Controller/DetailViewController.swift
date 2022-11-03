@@ -33,6 +33,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     var isFavorited: Bool?
     
     @IBAction func favoriteButton(_ sender: UIButton) {
+        nc.post(name: Notification.Name("FavoriteButtonTapped"), object: nil)
         if let id = movieId {
             FavoriteMovieManager.defaultManager.editFavoriteList(id: id)
             FavoriteMovieManager.defaultManager.saveData()
@@ -53,6 +54,8 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     var pageString = ServiceConstants.Paths.defaultPage
     var pageNum = 1
+    
+    var nc = NotificationCenter.default
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +109,8 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
             alertVC.addAction(okButton)
             self.present(alertVC, animated: true)
         }
+        
+        nc.addObserver(self, selector:  #selector(favoriteButtonTapped), name: Notification.Name("FavoriteButtonTapped"), object: nil)
         
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = CGSize(width: 200, height: 400)
@@ -209,6 +214,10 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
     }
     
+    @objc func favoriteButtonTapped(id: Int) {
+        FavoriteMovieManager.defaultManager.readFavoriteList()
+    }
+    
     func minutesToHoursMinutes(_ mins: Int) -> (Int, Int) {
         return (mins / CalculationConstants.minsInAnHour, (mins % CalculationConstants.minsInAnHour))
     }
@@ -216,7 +225,6 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     func amountInMs(rev: Int, bud: Int) -> (Int, Int) {
         return (rev/CalculationConstants.million, bud/CalculationConstants.million)
     }
-    
     
     struct CalculationConstants {
         

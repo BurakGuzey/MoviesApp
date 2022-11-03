@@ -18,8 +18,11 @@ class SearchListViewController: UIViewController, UITableViewDelegate {
     
     private var pageNum = 1 
     private var pageString = ServiceConstants.Paths.defaultPage
+    private var isFavorited: Bool?
     
     var textOnSearchBar = String()
+    
+    let nc = NotificationCenter.default
     
     let EmptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 400, height: 21))
     
@@ -29,7 +32,7 @@ class SearchListViewController: UIViewController, UITableViewDelegate {
         searchListTableView.delegate = self
         searchListTableView.dataSource = self
         
-        searchListTableView.register(UINib(nibName: String(describing: SearchListTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: SearchListTableViewCell.self))
+        searchListTableView.register(UINib(nibName: String(describing: MovieListTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: MovieListTableViewCell.self))
         
         searchListTableView.rowHeight = 94
         
@@ -40,6 +43,8 @@ class SearchListViewController: UIViewController, UITableViewDelegate {
         self.view.addSubview(EmptyLabel)
         
         searchBar.placeholder = "Search".localized()
+        
+        nc.addObserver(self, selector:  #selector(favoriteButtonTapped), name: Notification.Name("FavoriteButtonTapped"), object: nil)
     }
 }
 
@@ -51,10 +56,9 @@ extension SearchListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchListTableViewCell.self), for: indexPath) as! SearchListTableViewCell
-        cell.configure(movie: movies[indexPath.row])
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MovieListTableViewCell.self), for: indexPath) as! MovieListTableViewCell
+        cell.configure(movie: movies[indexPath.row], isFavorited: FavoriteMovieManager.defaultManager.checkMovieIsFavorited(id: movies[indexPath.row].id!))
         return cell
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -113,6 +117,11 @@ extension SearchListViewController: UISearchBarDelegate {
         }
     }
     
+    func favoriteMovie(id: Int) {
+        FavoriteMovieManager.defaultManager.editFavoriteList(id: id)
+        FavoriteMovieManager.defaultManager.saveData()
+    }
+    
     func loadMoreSearchedMovies() {
         pageNum = pageNum + 1
         pageString = String(pageNum)
@@ -125,5 +134,10 @@ extension SearchListViewController: UISearchBarDelegate {
                 print(error)
             }
         }
+    }
+    
+    @objc func favoriteButtonTapped() {
+        FavoriteMovieManager.defaultManager.readFavoriteList()
+        searchListTableView.reloadData()
     }
 }
