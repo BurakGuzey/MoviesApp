@@ -44,7 +44,7 @@ class SearchListViewController: UIViewController, UITableViewDelegate {
         
         searchBar.placeholder = "Search".localized()
         
-        nc.addObserver(self, selector:  #selector(favoriteButtonTapped), name: Notification.Name("FavoriteButtonTapped"), object: nil)
+        nc.addObserver(self, selector:  #selector(updatedFavoritedList), name: .updatedFavoriteList, object: nil)
     }
 }
 
@@ -119,7 +119,6 @@ extension SearchListViewController: UISearchBarDelegate {
     
     func favoriteMovie(id: Int) {
         FavoriteMovieManager.defaultManager.editFavoriteList(id: id)
-        FavoriteMovieManager.defaultManager.saveData()
     }
     
     func loadMoreSearchedMovies() {
@@ -136,7 +135,7 @@ extension SearchListViewController: UISearchBarDelegate {
         }
     }
     
-    @objc func favoriteButtonTapped() {
+    @objc func updatedFavoritedList () {
         FavoriteMovieManager.defaultManager.readFavoriteList()
         searchListTableView.reloadData()
     }

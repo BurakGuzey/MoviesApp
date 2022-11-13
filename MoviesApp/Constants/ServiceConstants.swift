@@ -36,6 +36,5 @@ struct ServiceConstants {
         static let baseServiceURL = "api.themoviedb.org"
         static let baseImageURL = "https://image.tmdb.org/t/p/w500"
         
-    }
-    
+    }    
 }

@@ -12,6 +12,7 @@ class MovieListTableViewCell: UITableViewCell {
     
     var movieId = Int()
     var nc = NotificationCenter.default
+    var movieDic = [String: Int]()
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var movieImage: UIImageView!
@@ -20,7 +21,7 @@ class MovieListTableViewCell: UITableViewCell {
     @IBOutlet weak var favButton: UIButton!
         
     @IBAction func favButton(_ sender: UIButton) {
-        nc.post(name: Notification.Name("FavoriteButtonTapped"), object: nil)
+        nc.post(name: .updatedFavoriteList , object: nil, userInfo: movieDic)
         handleMarkAsFavorite()
     }
     
@@ -31,9 +32,12 @@ class MovieListTableViewCell: UITableViewCell {
         nameLabel.text = movie.title
         releaseDateLabel.text = movie.releaseDate
         ratingLabel.text = ratingString
+        
         if let id = movie.id {
             movieId = id
+            movieDic = ["movie": id]
         }
+        
         if let imagePath = movie.posterPath {
             let imageString = ServiceConstants.BaseURLs.baseImageURL + imagePath
             let urlStringImage = URL(string: imageString)
@@ -51,8 +55,11 @@ class MovieListTableViewCell: UITableViewCell {
         nameLabel.text = movie.title
         releaseDateLabel.text = movie.releaseDate
         ratingLabel.text = ratingString
+        
+
         if let id = movie.id {
             movieId = id
+            movieDic = ["movie": id]
         }
         if let imagePath = movie.posterPath {
             let imageString = ServiceConstants.BaseURLs.baseImageURL + imagePath
@@ -64,9 +71,31 @@ class MovieListTableViewCell: UITableViewCell {
         favButton.tintColor = isFavorited == false ? .darkGray : .blue
     }
     
+    func configureFavoriteList(movie: MovieDetail) {
+        let ratingString = String(movie.voteAverage!)
+        nameLabel.text = movie.title
+        releaseDateLabel.text = movie.releaseDate
+        ratingLabel.text = ratingString
+        
+         
+        if let id = movie.id {
+            movieId = id
+            movieDic = ["movie": id]
+        }
+        
+        if let imagePath = movie.posterPath {
+            let imageString = ServiceConstants.BaseURLs.baseImageURL + imagePath
+            let urlStringImage = URL(string: imageString)
+            movieImage.setImage(sourceURL: urlStringImage)
+        } else {
+            movieImage.image = #imageLiteral(resourceName: "NO PHOTO")
+        }
+        
+        favButton.tintColor = .blue
+    }
+    
     func handleMarkAsFavorite() {
         FavoriteMovieManager.defaultManager.editFavoriteList(id: movieId)
-        FavoriteMovieManager.defaultManager.saveData()
         favButton.tintColor = (favButton.tintColor != .blue) ? .blue : .darkGray
     }
 }

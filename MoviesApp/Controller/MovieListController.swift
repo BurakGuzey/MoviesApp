@@ -29,7 +29,7 @@ class MovieListController: UIViewController, UITableViewDelegate {
         
         movieListTableView.rowHeight = 94
         
-        nc.addObserver(self, selector:  #selector(favoriteButtonTapped), name: Notification.Name("FavoriteButtonTapped"), object: nil)
+        nc.addObserver(self, selector:  #selector(updatedFavoritedList), name: .updatedFavoriteList, object: nil)
         
         movieService.getAllMovies(page: pageString) { result in
             switch result {
@@ -38,10 +38,10 @@ class MovieListController: UIViewController, UITableViewDelegate {
                 self.movieListTableView.reloadData()
             case.failure(let error):
                 print(error)
-                }
             }
         }
     }
+}
 
 extension MovieListController: UITableViewDataSource {
     
@@ -64,7 +64,7 @@ extension MovieListController: UITableViewDataSource {
         }
         movieListTableView.deselectRow(at: indexPath, animated: true)
     }
-
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == movies.count - 1 {
             loadMoreMovies()
@@ -85,7 +85,7 @@ extension MovieListController: UITableViewDataSource {
         }
     }
     
-    @objc func favoriteButtonTapped(id: Int) {
+    @objc func updatedFavoritedList(id: Int) {
         FavoriteMovieManager.defaultManager.readFavoriteList()
         movieListTableView.reloadData()
     }

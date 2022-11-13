@@ -31,12 +31,12 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     var movieId: Int?
     var isFavorited: Bool?
+    var movieDic = [String: Int]()
     
     @IBAction func favoriteButton(_ sender: UIButton) {
-        nc.post(name: Notification.Name("FavoriteButtonTapped"), object: nil)
+        nc.post(name: .updatedFavoriteList , object: nil, userInfo: movieDic)
         if let id = movieId {
             FavoriteMovieManager.defaultManager.editFavoriteList(id: id)
-            FavoriteMovieManager.defaultManager.saveData()
         }
         favoriteButton.tintColor = (favoriteButton.tintColor != .blue) ? .blue : .darkGray
     }
@@ -66,9 +66,9 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         homepageLabel.text = "Home Page".localized()
         recommendationsLabel.text = "Recommendations".localized()
         
-        
-        
         if let id = movieId {
+            
+            movieDic = ["movie": id]
             
             movieService.getMovieDetail(id: id) { result in
                 switch result {
@@ -110,7 +110,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
             self.present(alertVC, animated: true)
         }
         
-        nc.addObserver(self, selector:  #selector(favoriteButtonTapped), name: Notification.Name("FavoriteButtonTapped"), object: nil)
+        nc.addObserver(self, selector:  #selector(updatedFavoritedList), name: .updatedFavoriteList, object: nil)
         
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = CGSize(width: 200, height: 400)
@@ -214,7 +214,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
     }
     
-    @objc func favoriteButtonTapped(id: Int) {
+    @objc func updatedFavoritedList(id: Int) {
         FavoriteMovieManager.defaultManager.readFavoriteList()
     }
     
@@ -233,7 +233,3 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         
     }
 }
-
-
-
-

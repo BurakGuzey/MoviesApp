@@ -12,8 +12,8 @@ class FavoritesListViewController: UIViewController, UITableViewDelegate {
     
     private var movieService = MovieService()
     var favoritedMovies = [MovieDetail]()
-    var favoritedMovieIdList = [Int]()
-    var isFavorited: Bool?
+    var movieIdTapped = Int()
+    var movieToRemoveOrAdd: MovieDetail?
     
     var nc = NotificationCenter.default
     
@@ -29,10 +29,9 @@ class FavoritesListViewController: UIViewController, UITableViewDelegate {
         
         favoritesTableView.rowHeight = 94
         
-        favoriteListUpdate()
-        favoriteListUpload()
+        uploadFavoriteList()
         
-        nc.addObserver(self, selector:  #selector(favoriteButtonTapped), name: Notification.Name("FavoriteButtonTapped"), object: nil)
+        nc.addObserver(self, selector:  #selector(favoriteButtonTapped), name: .updatedFavoriteList, object: nil)
         
     }
 }
@@ -45,7 +44,7 @@ extension FavoritesListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MovieListTableViewCell.self), for: indexPath) as! MovieListTableViewCell
-        cell.configureDetail(movie: favoritedMovies[indexPath.row], isFavorited: isFavorited!)
+        cell.configureFavoriteList(movie: favoritedMovies[indexPath.row])
         return cell
     }
     
@@ -58,38 +57,50 @@ extension FavoritesListViewController: UITableViewDataSource {
         favoritesTableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func favoriteListUpdate() {
+    func uploadFavoriteList() {
         for movieId in FavoriteMovieManager.defaultManager.favoritedIdList {
-            isFavorited = FavoriteMovieManager.defaultManager.checkMovieIsFavorited(id: movieId)
-            if favoritedMovieIdList.contains(movieId) {
-                var indexOfMovieToRemove = favoritedMovieIdList.index(of: movieId)!
-                favoritedMovieIdList.remove(at: indexOfMovieToRemove)
-            } else {
-                favoritedMovieIdList.append(movieId)
+            movieService.getMovieDetail(id: movieId) { result in
+                switch result {
+                case .success(let movie):
+                    self.favoritedMovies.append(movie)
+                    self.favoritesTableView.reloadData()
+                case .failure(let error):
+                    print(error)
+                }
             }
         }
     }
     
-    func favoriteListUpload() {
-        for movieId in FavoriteMovieManager.defaultManager.favoritedIdList {
-        movieService.getMovieDetail(id: movieId) { result in
+    func updateFavoriteList() {
+        
+        movieService.getMovieDetail(id: movieIdTapped) { result in
             switch result {
             case .success(let movie):
-                        self.favoritedMovies.append(movie)
+                self.movieToRemoveOrAdd = movie
+                if self.favoritedMovies.contains(self.movieToRemoveOrAdd!) {
+                    if let indexOfMovieToRemoveOrAdd = self.favoritedMovies.firstIndex(of: self.movieToRemoveOrAdd!){
+                        self.favoritedMovies.remove(at: indexOfMovieToRemoveOrAdd)
                         self.favoritesTableView.reloadData()
-                print(self.favoritedMovies)
+                        print("added")
+                    }
+                } else {
+                    self.favoritedMovies.append(self.movieToRemoveOrAdd!)
+                    self.favoritesTableView.reloadData()
+                    print("removed")
+            }
             case .failure(let error):
                 print(error)
             }
         }
-    }
-        favoritedMovies = []
+
 }
     
-    @objc func favoriteButtonTapped() {
-        FavoriteMovieManager.defaultManager.readFavoriteList()
-        favoriteListUpdate()
-        favoriteListUpload()
-        favoritesTableView.reloadData()
+    @objc func favoriteButtonTapped(notification: NSNotification) {
+        
+        if let movieTapped = notification.userInfo?["movie"] as? Int {
+            FavoriteMovieManager.defaultManager.readFavoriteList()
+            movieIdTapped = movieTapped
+            updateFavoriteList()
+        }
     }
 }

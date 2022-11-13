@@ -20,18 +20,15 @@ class FavoriteMovieManager {
     
     var favoritedIdList = [Int]()
     
-    
-    func saveData() {
-        defaults.set(favoritedIdList, forKey: "FavoritedMovieList")
-    }
-    
+
     func editFavoriteList(id: Int) {
         if favoritedIdList.contains(id) {
-            var indexOfMovieToRemove = favoritedIdList.index(of: id)!
+            let indexOfMovieToRemove = favoritedIdList.firstIndex(of: id)!
             favoritedIdList.remove(at: indexOfMovieToRemove)
         } else {
             favoritedIdList.append(id)
         }
+        defaults.set(favoritedIdList, forKey: "FavoritedMovieList")
     }
     
     func readFavoriteList() {
