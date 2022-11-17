@@ -17,9 +17,3 @@ struct Movie: Codable {
     
 }
 
-struct FavoritePreferenceOfMovie {
-    
-    var hasFavorited: Bool
-    var movie: Movie
-    
-}

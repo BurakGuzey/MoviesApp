@@ -46,6 +46,14 @@ class SearchListViewController: UIViewController, UITableViewDelegate {
         
         nc.addObserver(self, selector:  #selector(updatedFavoritedList), name: .updatedFavoriteList, object: nil)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        searchBar.searchTextField.keyboardType = .emailAddress
+        searchBar.searchTextField.becomeFirstResponder()
+        
+    }
 }
 
 extension SearchListViewController: UITableViewDataSource {
@@ -92,6 +100,8 @@ extension SearchListViewController: UISearchBarDelegate {
             
             searchedMovies(text: text)
             searchListTableView.reloadData()
+            
+            searchBar.searchTextField.resignFirstResponder()
             
         }
     }
