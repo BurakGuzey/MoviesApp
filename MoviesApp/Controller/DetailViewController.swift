@@ -51,6 +51,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     private var casts: [Cast] = []
     private var genres: [Genres] = []
     private var recommendations: [Recommendation] = []
+    private var reviews: [Review] = []
     
     var pageString = ServiceConstants.Paths.defaultPage
     var pageNum = 1
@@ -95,6 +96,16 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
                     self.casts = response.cast
                     self.castCollectionView.reloadData()
                 case .failure(let error):
+                    print(error)
+                }
+            }
+            
+            movieService.getReviews(id: id, page: pageString) { result in
+                switch result {
+                case.success(let response):
+                    self.reviews = response.results ?? []
+                    print(self.reviews)
+                case.failure(let error):
                     print(error)
                 }
             }
