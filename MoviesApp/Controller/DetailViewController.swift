@@ -28,6 +28,19 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var homePageTextLabel: UILabel!
     @IBOutlet weak var recommendationsCollectionView: UICollectionView!
     @IBOutlet weak var recommendationsLabel: UILabel!
+    @IBOutlet weak var author1: UILabel!
+    @IBOutlet weak var content2: UILabel!
+    @IBOutlet weak var content1: UILabel!
+    @IBOutlet weak var author2: UILabel!
+    @IBOutlet weak var viewAllReviews: UIButton!
+    
+    
+    @IBAction func viewAllReviews(_ sender: UIButton) {
+        if let reviewVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ReviewsViewController.self)) as? ReviewsViewController {
+            reviewVC.movieId = movieId
+            self.present(reviewVC, animated: true)
+        }
+    }
     
     var movieId: Int?
     var isFavorited: Bool?
@@ -51,6 +64,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     private var casts: [Cast] = []
     private var genres: [Genres] = []
     private var recommendations: [Recommendation] = []
+    private var reviews: [Review] = []
     
     var pageString = ServiceConstants.Paths.defaultPage
     var pageNum = 1
@@ -65,10 +79,22 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         revenueLabel.text = "Revenue".localized()
         homepageLabel.text = "Home Page".localized()
         recommendationsLabel.text = "Recommendations".localized()
+        viewAllReviews.titleLabel?.text = "Show All Reviews".localized()
+
         
         if let id = movieId {
             
             movieDic = ["movie": id]
+            
+            movieService.getReviews(id: id, page: pageString) { result in
+                switch result {
+                case.success(let response):
+                    self.reviews = response.results ?? []
+                    print(self.reviews)
+                case.failure(let error):
+                    print(error)
+                }
+            }
             
             movieService.getMovieDetail(id: id) { result in
                 switch result {
@@ -188,6 +214,13 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         budgetValueLabel.text = budgetString
         revenueValueLabel.text = revenueString
         homePageTextLabel.text = movieDetail?.homepage
+        
+        if reviews.count >= 2 {
+            author1.text = reviews[0].author
+            author2.text = reviews[1].author
+            content1.text = reviews[0].content
+            content2.text = reviews[1].content
+        }
         
         if let imagePath = movieDetail?.posterPath {
             let imageString = ServiceConstants.BaseURLs.baseImageURL + imagePath

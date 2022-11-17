@@ -47,4 +47,10 @@ struct MovieService {
         
     }
     
+    func getReviews(id: Int, page: String, completion: @escaping (Result<AllReviews, NetworkError>) -> Void) {
+        
+        networkManager.performRequest(request: ReviewRequest.allReviewRequest(id: id), completion: completion)
+
+    }
+    
 }
