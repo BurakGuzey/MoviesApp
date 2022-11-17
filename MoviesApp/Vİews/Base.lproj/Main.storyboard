@@ -380,7 +380,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSf-Ow-Uyn" userLabel="Content">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSf-Ow-Uyn" userLabel="Content" customClass="ExpandableLabel" customModule="MoviesApp" customModuleProvider="target">
                                                         <rect key="frame" x="100" y="0.0" width="255" height="20.333333333333332"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -404,7 +404,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74m-b0-dpF" userLabel="Content">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74m-b0-dpF" userLabel="Content" customClass="ExpandableLabel" customModule="MoviesApp" customModuleProvider="target">
                                                         <rect key="frame" x="100" y="0.0" width="255" height="20.333333333333332"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -702,6 +702,36 @@
             </objects>
             <point key="canvasLocation" x="3636" y="71"/>
         </scene>
+        <!--ReviewsViewController-->
+        <scene sceneID="x2s-1S-wS9">
+            <objects>
+                <viewController storyboardIdentifier="ReviewsViewController" title="ReviewsViewController" id="ejw-Dd-jAv" customClass="ReviewsViewController" customModule="MoviesApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1Fx-5e-mdj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="iSy-54-hZh">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="miD-IE-s13"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iSy-54-hZh" firstAttribute="leading" secondItem="miD-IE-s13" secondAttribute="leading" id="9UB-aM-fh0"/>
+                            <constraint firstItem="miD-IE-s13" firstAttribute="trailing" secondItem="iSy-54-hZh" secondAttribute="trailing" id="BoR-zv-EdR"/>
+                            <constraint firstItem="miD-IE-s13" firstAttribute="bottom" secondItem="iSy-54-hZh" secondAttribute="bottom" id="Lna-ro-yeE"/>
+                            <constraint firstItem="iSy-54-hZh" firstAttribute="top" secondItem="1Fx-5e-mdj" secondAttribute="top" id="xdh-kR-3rr"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="reviewsTableView" destination="iSy-54-hZh" id="Dg7-J4-uyc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vLA-F1-fM2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4455" y="524"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="t75-K9-bSL">
             <objects>
@@ -802,7 +832,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <searchBar contentMode="redraw" id="Kdk-C8-h7k">
-                                <rect key="frame" x="-13" y="88" width="373" height="44"/>
+                                <rect key="frame" x="-15" y="88" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>

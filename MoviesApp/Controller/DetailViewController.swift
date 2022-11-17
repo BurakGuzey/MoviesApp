@@ -33,8 +33,13 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var content1: UILabel!
     @IBOutlet weak var author2: UILabel!
     @IBOutlet weak var viewAllReviews: UIButton!
+    
+    
     @IBAction func viewAllReviews(_ sender: UIButton) {
-        
+        if let reviewVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ReviewsViewController.self)) as? ReviewsViewController {
+            reviewVC.movieId = movieId
+            self.present(reviewVC, animated: true)
+        }
     }
     
     var movieId: Int?
@@ -209,10 +214,13 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         budgetValueLabel.text = budgetString
         revenueValueLabel.text = revenueString
         homePageTextLabel.text = movieDetail?.homepage
-        author1.text = reviews[0].author
-        author2.text = reviews[1].author
-        content1.text = reviews[0].content
-        content2.text = reviews[1].content
+        
+        if reviews.count >= 2 {
+            author1.text = reviews[0].author
+            author2.text = reviews[1].author
+            content1.text = reviews[0].content
+            content2.text = reviews[1].content
+        }
         
         if let imagePath = movieDetail?.posterPath {
             let imageString = ServiceConstants.BaseURLs.baseImageURL + imagePath
