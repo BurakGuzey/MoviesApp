@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import WebKit
 
 class DetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -25,7 +26,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var homepageLabel: UILabel!
     @IBOutlet weak var castCollectionView: UICollectionView!
     @IBOutlet weak var revenueLabel: UILabel!
-    @IBOutlet weak var homePageTextLabel: UILabel!
+    @IBOutlet weak var homepageButtonOutlet: UIButton!
     @IBOutlet weak var recommendationsCollectionView: UICollectionView!
     @IBOutlet weak var recommendationsLabel: UILabel!
     @IBOutlet weak var author1: UILabel!
@@ -34,6 +35,12 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var author2: UILabel!
     @IBOutlet weak var viewAllReviews: UIButton!
     
+    @IBAction func homepageButton(_ sender: UIButton) {
+        if let homepageVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: HomepageViewController.self)) as? HomepageViewController {
+            homepageVC.homepageString = movieDetail?.homepage
+            self.present(homepageVC, animated: true)
+        }
+    }
     
     @IBAction func viewAllReviews(_ sender: UIButton) {
         if let reviewVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: ReviewsViewController.self)) as? ReviewsViewController {
@@ -90,7 +97,6 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
                 switch result {
                 case.success(let response):
                     self.reviews = response.results ?? []
-                    print(self.reviews)
                 case.failure(let error):
                     print(error)
                 }
@@ -137,6 +143,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
         
         nc.addObserver(self, selector:  #selector(updatedFavoritedList), name: .updatedFavoriteList, object: nil)
+        
         
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = CGSize(width: 200, height: 400)
@@ -213,13 +220,23 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         runTimeLabel.text = runTimeString
         budgetValueLabel.text = budgetString
         revenueValueLabel.text = revenueString
-        homePageTextLabel.text = movieDetail?.homepage
+        
         
         if reviews.count >= 2 {
             author1.text = reviews[0].author
             author2.text = reviews[1].author
             content1.text = reviews[0].content
             content2.text = reviews[1].content
+        } else if reviews.count == 1 {
+            author1.text = reviews[0].author
+            content1.text = reviews[0].content
+            author2.isHidden = true
+            content2.isHidden = true
+        } else {
+            author1.isHidden = true
+            author2.isHidden = true
+            content1.isHidden = true
+            content2.isHidden = true
         }
         
         if let imagePath = movieDetail?.posterPath {
@@ -250,6 +267,8 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     @objc func updatedFavoritedList(id: Int) {
         FavoriteMovieManager.defaultManager.readFavoriteList()
     }
+    
+
     
     func minutesToHoursMinutes(_ mins: Int) -> (Int, Int) {
         return (mins / CalculationConstants.minsInAnHour, (mins % CalculationConstants.minsInAnHour))
