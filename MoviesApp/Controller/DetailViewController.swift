@@ -144,13 +144,6 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         nc.addObserver(self, selector:  #selector(updatedFavoritedList), name: .updatedFavoriteList, object: nil)
         
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: 200, height: 400)
-        layout.scrollDirection = .horizontal
-        
-        recommendationsCollectionView.collectionViewLayout = layout
-        
         castCollectionView.dataSource = self
         castCollectionView.delegate = self
         
@@ -214,6 +207,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         let budgetString = "\(bud)M $"
         let revenueString = "\(rev)M $"
         let runTimeString = "\(h)h \(m)m"
+        
         nameLabel.text = movieDetail?.title
         releaseDateLabel.text = movieDetail?.releaseDate
         overviewTextLabel.text = movieDetail?.overview
@@ -223,20 +217,35 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         
         if reviews.count >= 2 {
+            
+            author1.isHidden = false
+            author2.isHidden = false
+            content1.isHidden = false
+            content2.isHidden = false
+            viewAllReviews.isHidden = false
+            
             author1.text = reviews[0].author
             author2.text = reviews[1].author
             content1.text = reviews[0].content
             content2.text = reviews[1].content
+            
         } else if reviews.count == 1 {
+            
             author1.text = reviews[0].author
             content1.text = reviews[0].content
+            
             author2.isHidden = true
             content2.isHidden = true
+            viewAllReviews.isHidden = true
+            
         } else {
+            
             author1.isHidden = true
             author2.isHidden = true
             content1.isHidden = true
             content2.isHidden = true
+            viewAllReviews.isHidden = true
+            
         }
         
         if let imagePath = movieDetail?.posterPath {
